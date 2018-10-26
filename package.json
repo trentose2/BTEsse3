@@ -1,0 +1,23 @@
+{
+  "name": "btesse3",
+  "version": "1.0.0",
+  "description": "better than esse3",
+  "main": "api.js",
+  "scripts": {
+    "start": "node api.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caramellaio/BTEsse3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caramellaio/BTEsse3/issues"
+  },
+  "homepage": "https://github.com/caramellaio/BTEsse3#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
