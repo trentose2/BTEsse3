@@ -31,4 +31,20 @@ paths:
         '200':
           description: OK
 
+  /tasks/{taskId}:
+    get:
+      summary: Returns a task by ID.
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          description: Returns a task by ID.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses: 
+        '200':
+          description: OK
+
 definitions:
