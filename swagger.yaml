@@ -159,7 +159,7 @@ paths:
   /tasks/id/{taskId}:
     get:
       tags:
-      - "user"
+      - "task"
       summary: "Returns a task by ID."
       description: ""
       operationId: "getTaskId"
@@ -172,9 +172,219 @@ paths:
       responses: 
         200:
           description: "OK"
+          schema:
+            $ref: "#/definitions/Task"
+    put:
+      tags:
+      - "task"
+      summary: "Updated task"
+      description: ""
+      operationId: "updateTask"
+      parameters:
+      - name: "taskId"
+        in: "path"
+        description: "id that need to be updated"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Updated task object"
+        required: true
+        schema:
+          $ref: "#/definitions/Task"
+      responses:
+        404:
+          description: "Task not found"
+    delete:
+      tags:
+      - "task"
+      summary: "Delete task"
+      description: ""
+      operationId: "deleteTask"
+      parameters:
+      - name: "taskId"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+      responses:
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "Task not found"
+  /tasks/type/{type}:
+    get:
+      tags:
+      - "task"
+      summary: "Return the type of task"
+      description: ""
+      operationId: "getTaskType"
+      parameters:
+      - name: "type"
+        in: "path"
+        required: true
+        description: "Return the type of task"
+        type: "string"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Task"
+  /exams/{idUser}:
+    get:
+      tags:
+      - "exam"
+      summary: "Return the exams created by user"
+      description: ""
+      operationId: "getExams"
+      parameters:
+      - name: "idUser"
+        in: "path"
+        required: true
+        description: "Return the exams created by user"
+        type: "integer"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Exam"
+  /exams/id/{idExam}:
+    get:
+      tags:
+      - "exam"
+      summary: "Return the exam by id"
+      description: ""
+      operationId: "getExamById"
+      parameters:
+      - name: "idExam"
+        in: "path"
+        required: true
+        description: "Return the exam by id"
+        type: "integer"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Exam"
+    put:
+      tags:
+      - "exam"
+      summary: "Updated exam"
+      description: ""
+      operationId: "updateExam"
+      parameters:
+      - name: "idExam"
+        in: "path"
+        description: "id that need to be updated"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Updated exam object"
+        required: true
+        schema:
+          $ref: "#/definitions/Exam"
+      responses:
+        404:
+          description: "Exam not found"
+    delete:
+      tags:
+      - "exam"
+      summary: "Delete exam"
+      description: ""
+      operationId: "deleteExam"
+      parameters:
+      - name: "idExam"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+      responses:
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "Exam not found"
+  /userGroup/id/{idUserGroup}:
+    get:
+      tags:
+      - "userGroup"
+      summary: "Return the user group by id"
+      description: ""
+      operationId: "getUserGroupById"
+      parameters:
+      - name: "idUserGroup"
+        in: "path"
+        required: true
+        description: "Return the user group by id"
+        type: "integer"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/UserGroup"
+    post:
+      tags:
+      - "userGroup"
+      summary: "Update user group"
+      description: ""
+      operationId: "updateUserGroup"
+      parameters:
+      - name: "idUserGroup"
+        in: "path"
+        description: "id that need to be updated"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Updated user group object"
+        required: true
+        schema:
+          $ref: "#/definitions/UserGroup"
+      responses:
+        404:
+          description: "User group not found"
+    delete:
+      tags:
+      - "userGroup"
+      summary: "Delete user group"
+      description: ""
+      operationId: "deleteUserGroup"
+      parameters:
+      - name: "idUserGroup"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+      responses:
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User group not found"
+  /userGroup/id:
+    put:
+        tags:
+        - "userGroup"
+        summary: "Create user group"
+        description: ""
+        operationId: "createUserGroup"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Create user group object"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroup"
+        responses:
+          200:
+            description: "OK"
 definitions:
   User:
     type: "object"
+    required:
+    - "id"
+    - "username"
+    - "email"
+    - "password"
     properties:
       id:
         type: "integer"
@@ -192,9 +402,64 @@ definitions:
         type: "string"
       phone:
         type: "string"
-      userStatus:
-        type: "integer"
-        format: "int32"
-        description: "User Status"
     xml:
       name: "User"
+  Task:
+    type: "object"
+    required:
+    - "id"
+    - "type"
+    - "request"
+    - "response"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      type:
+        type: "string"
+      request:
+        type: "string"
+      response:
+        type: "string"
+    xml:
+      name: "Task"
+  Exam:
+    type: "object"
+    required:
+    - "id"
+    - "valutation"
+    - "tasks"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      valutation:
+        type: "integer"
+        format: "int64"
+      tasks:
+        type: "array"
+        xml:
+          name: "tasks"
+          wrapped: true
+        items:
+          $ref: "#/definitions/Task"
+    xml:
+      name: "TaskGroup"
+  UserGroup:
+    type: "object"
+    required:
+    - "id"
+    - "users"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      users:
+        type: "array"
+        xml:
+          name: "users"
+          wrapped: true
+        items:
+          $ref: "#/definitions/User"
+    xml:
+      name: "UserGroup"
