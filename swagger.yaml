@@ -94,7 +94,7 @@ paths:
       responses: 
         200:
           description: "OK"
-  /user/{username}:
+  /user/username/{username}:
     get:
       tags:
       - "user"
@@ -463,3 +463,4 @@ definitions:
           $ref: "#/definitions/User"
     xml:
       name: "UserGroup"
+
