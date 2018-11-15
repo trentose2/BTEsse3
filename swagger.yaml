@@ -34,7 +34,7 @@ paths:
         default:
           description: "successful operation"
   /user/login:
-    get:
+    post:
       tags:
       - "user"
       summary: "Logs user into the system"
