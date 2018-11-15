@@ -16,7 +16,7 @@ consumes:
 produces:
 - application/json
 paths:
-  /user:
+  /users:
     post:
       tags:
       - "user"
@@ -33,7 +33,7 @@ paths:
       responses:
         default:
           description: "successful operation"
-  /user/login:
+  /users/login:
     post:
       tags:
       - "user"
@@ -67,7 +67,7 @@ paths:
               description: "date in UTC when token expires"
         400:
           description: "Invalid username/password supplied"
-  /user/logout:
+  /users/logout:
     get:
       tags:
       - "user"
@@ -78,7 +78,7 @@ paths:
       responses:
         default:
           description: "successful operation" 
-  /user/id/{id}:
+  /users/{id}:
     get:
       tags:
       - "user"
@@ -94,7 +94,7 @@ paths:
       responses: 
         200:
           description: "OK"
-  /user/username/{username}:
+  /users/username/{username}:
     get:
       tags:
       - "user"
@@ -156,7 +156,7 @@ paths:
           description: "Invalid username supplied"
         404:
           description: "User not found"
-  /tasks/id/{taskId}:
+  /tasks/{id}:
     get:
       tags:
       - "task"
@@ -164,7 +164,7 @@ paths:
       description: ""
       operationId: "getTaskId"
       parameters:
-      - name: "taskId"
+      - name: "id"
         in: "path"
         required: true
         description: "Returns a task by ID."
@@ -181,7 +181,7 @@ paths:
       description: ""
       operationId: "updateTask"
       parameters:
-      - name: "taskId"
+      - name: "id"
         in: "path"
         description: "id that need to be updated"
         required: true
@@ -202,7 +202,7 @@ paths:
       description: ""
       operationId: "deleteTask"
       parameters:
-      - name: "taskId"
+      - name: "id"
         in: "path"
         description: "The id that needs to be deleted"
         required: true
@@ -212,25 +212,7 @@ paths:
           description: "Invalid username supplied"
         404:
           description: "Task not found"
-  /tasks/type/{type}:
-    get:
-      tags:
-      - "task"
-      summary: "Return the type of task"
-      description: ""
-      operationId: "getTaskType"
-      parameters:
-      - name: "type"
-        in: "path"
-        required: true
-        description: "Return the type of task"
-        type: "string"
-      responses: 
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/Task"
-  /exams/{idUser}:
+  /exams/idUser/{idUser}:
     get:
       tags:
       - "exam"
@@ -248,7 +230,7 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/Exam"
-  /exams/id/{idExam}:
+  /exams/{idExam}:
     get:
       tags:
       - "exam"
@@ -304,7 +286,7 @@ paths:
           description: "Invalid username supplied"
         404:
           description: "Exam not found"
-  /userGroup/id/{idUserGroup}:
+  /userGroups/{idUserGroup}:
     get:
       tags:
       - "userGroup"
@@ -360,7 +342,6 @@ paths:
           description: "Invalid username supplied"
         404:
           description: "User group not found"
-  /userGroup/id:
     put:
         tags:
         - "userGroup"
@@ -368,15 +349,44 @@ paths:
         description: ""
         operationId: "createUserGroup"
         parameters:
+        - name: "idUserGroup"
+          in: "path"
+          description: "id that need to be updated"
+          required: true
+          type: "integer"
         - in: "body"
           name: "body"
-          description: "Create user group object"
+          description: "Updated user group object"
           required: true
           schema:
             $ref: "#/definitions/UserGroup"
         responses:
           200:
             description: "OK"
+  /submissions/{idExam}:
+    post:
+      tags:
+      - "submission"
+      summary: "Submit exam"
+      description: ""
+      operationId: "submitExam"
+      parameters:
+      - name: "idExam"
+        in: "path"
+        description: "id that need to be submitted"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Submitted exam object"
+        required: true
+        schema:
+          $ref: "#/definitions/Exam"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Submission not well formed"
 definitions:
   User:
     type: "object"
