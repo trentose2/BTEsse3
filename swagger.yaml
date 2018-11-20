@@ -315,11 +315,11 @@ paths:
           description: "OK"
         404:
           description: "Task not found"
-  /tasks/reviews/{idTask}:
+  /tasks/{idTask}/review:
     get:
       tags:
       - "task"
-      summary: "Get the Reviews a tasks by id"
+      summary: "Get the review of a tasks by id"
       description: ""
       operationId: "getReviewsByIdTask"
       parameters:
@@ -337,7 +337,7 @@ paths:
           description: "Getting reviews failed"
         404:
           description: "Review not found"
-  /tasks/reviews:
+  /tasks/review:
     post:
       tags:
       - "task"
@@ -375,7 +375,7 @@ paths:
           description: "OK"
         400:
           description: "Evaluation of the review failed"
-  /exams/idUser/{idUser}:
+  /exams/idUsers/{idUser}:
     get:
       tags:
       - "exam"
@@ -651,11 +651,14 @@ definitions:
   Exam:
     type: "object"
     required:
-    - "id"
+    - "nameExam"
+    - "idExam"
     - "valutation"
     - "tasks"
     properties:
-      id:
+      nameExam:
+        type: "string"
+      idExam:
         type: "integer"
         format: "int64"
       idUser:
@@ -711,12 +714,12 @@ definitions:
   Review:
     type: "object"
     required:
-    - "id"
+    - "idReview"
     - "idUser"
     - "idTask"
     - "message"
     properties:
-      id:
+      idReview:
         type: "integer"
         format: "int64"
       idUser:
