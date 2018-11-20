@@ -2,9 +2,9 @@ swagger: '2.0'
 info:
   version: '1.0'
   title: "BTEsse3"
-  description: Polls is a simple API allowing consumers to view polls and vote in them.
+  description: This API provide a service to handle exams from the perspective of the student and the teacher
   license:
-    name: MIT
+    name: GPL3
     url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
 host: polls.apiblueprint.org
 basePath: /
