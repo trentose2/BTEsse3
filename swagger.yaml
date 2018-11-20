@@ -5,8 +5,7 @@ info:
   description: This API provide a service to handle exams from the perspective of the student and the teacher
   license:
     name: GPL3
-    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
-host: polls.apiblueprint.org
+    url: https://github.com/caramellaio/BTEsse3/blob/master/LICENSE
 basePath: /
 schemes:
 - "http"
