@@ -1,0 +1,71 @@
+[
+    {
+        "idExam": 1,
+        "idUser": 1,
+        "nameExam": "esempio",
+        "valutation": 1,
+        "tasks": [
+            {
+                "id": 1,
+                "type": "open",
+                "request": "domanda",
+                "response": "risposta",
+                "reviews": [
+                    {
+                        "idReview": 1,
+                        "idUser": 1,
+                        "idTask": 1,
+                        "message": "es",
+                        "mark": 1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "idExam": 2,
+        "idUser": 1,
+        "nameExam": "esempio2",
+        "valutation": 1,
+        "tasks": [
+            {
+                "id": 1,
+                "type": "open",
+                "request": "domanda",
+                "response": "risposta",
+                "reviews": [
+                    {
+                        "idReview": 1,
+                        "idUser": 1,
+                        "idTask": 1,
+                        "message": "es",
+                        "mark": 1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "idExam": 3,
+        "idUser": 1,
+        "nameExam": "esempio3",
+        "valutation": 1,
+        "tasks": [
+            {
+                "id": 1,
+                "type": "open",
+                "request": "domanda",
+                "response": "risposta",
+                "reviews": [
+                    {
+                        "idReview": 1,
+                        "idUser": 1,
+                        "idTask": 1,
+                        "message": "es",
+                        "mark": 1
+                    }
+                ]
+            }
+        ]
+    }
+]

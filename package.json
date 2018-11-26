@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "better than esse3",
   "main": "api.js",
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "scripts": {
     "start": "node api.js",
     "test": "jest"
@@ -18,13 +21,14 @@
   },
   "homepage": "https://github.com/caramellaio/BTEsse3#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4"
   },
   "devDependencies": {
     "jest": "^23.6.0"
   },
   "jest": {
-    "verbose":true,
-    "collectCoverage":true
+    "verbose": true,
+    "collectCoverage": false
   }
 }
