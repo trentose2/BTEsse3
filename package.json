@@ -29,6 +29,6 @@
   },
   "jest": {
     "verbose": true,
-    "collectCoverage": false
+    "collectCoverage": true
   }
 }
