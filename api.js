@@ -72,8 +72,8 @@ app.get('/sessionExams/:idSession', (req,res) => {
 	}
         res.sendStatus(200)
 }}});
-
-app.put('/sessionExams/{idSession}', (req, res) => {
+//PUT, /sessionExams
+app.put('/sessionExams', (req, res) => {
     //controllo se c'è la sessione
     const index = session_offered.findIndex((item) => {return item.id===req.params.idSession})
     if (index===-1) {
@@ -81,8 +81,7 @@ app.put('/sessionExams/{idSession}', (req, res) => {
     } else {
 	const old_idSession = req.body.idSession
     	const old_exams = req.body.exams
-	const old_session = [{old_idSession,old_exams}] 
-	session_offered.push(old_session)
+	session_offered[index] ={old_idSession, old_exams}
         res.sendStatus(200)
         res.json(old_session)
 	console.log(session_offered)
