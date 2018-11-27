@@ -52,4 +52,6 @@ function delete_task(id) {
 
 }
 
+router.test_fun_get_tasks = get_tasks;
+router.test_fun_get_task_by_id =get_task_by_id;
 module.exports = router;
