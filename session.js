@@ -2,23 +2,13 @@ const session_offered  = require ('/.session_offered')
 //POST, /sessionExams
 function create_session(idSession, exams){
 		const index = session_offered.findIndex((item) => {return item.id===idSession})
-		if (index!==-1 || exam == null) {
-			return 404
-		} else {
+		if (index===-1 && exam !== null) {
 			session_offered[index] ={idSession, exams}
-    	//controllo se c'è la nuova sessione
-	    	const index = session_offered.findIndex((item) => {return item.id===idSession})
-	    	if (index!==-1) {
-		var count = 0
-		for(i=0;i<session_offered.lenght;i++) { //controllo che sia unica
-			if (session_offered[l].id===idSession)
-			count++
+			return 200
+		} else {
+			return 404
+    	
     		}
-    		if (count = 1) {
-		return 200
-    		}
-	 }
-	}
 }
  
  //DELETE, /sessionExam/{idSession}
@@ -41,7 +31,7 @@ function get_sessions() {
 function get_session_by_id (idSession) {
  	const index = session_offered.findIndex((item) => {return item.id===idSession})
 		if (index!==-1) {
-			return session_offered[index]
+			return session_offered[index].exams
 		    }else {
 			 return 404
 			
