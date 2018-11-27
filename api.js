@@ -22,7 +22,7 @@ app.post('/sessionExams', (req, res) => {
     session_offered.push(new_session)
     //controllo se c'è la nuova sessione
     const index = session_offered.findIndex((item) => {return item.id===req.params.idSession})
-    if (index===1) {
+    if (index!==-1) {
         res.sendstatus(200)
         res.json(new_session)
         console.log(session_offered)
@@ -74,21 +74,9 @@ app.get('/sessionExams/:idSession', (req,res) => {
 }}});
 
 app.put('/sessionExams/{idSession}', (req, res) => {
-    var b = parseInt('idSession',10)
-    if (b <= 0) {
-     res.sendStatus(400)
-   } else { 
     //controllo se c'è la sessione
     const index = session_offered.findIndex((item) => {return item.id===req.params.idSession})
     if (index===-1) {
-	    res.sendStatus(404)
-    } else {
-	var count = 0
-    	for(i=0;i<session_offered.lenght;i++) { //controllo che sia unico
-      		if (session_offered[l].id===req.params.idSession)
-          	count++
-    }
-    if (count >1) {
 	res.sendStatus(400)
     } else {
 	const old_idSession = req.body.idSession
