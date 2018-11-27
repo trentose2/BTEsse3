@@ -1,15 +1,21 @@
-const express = require('express');
-const app = express();
+//NOT USED
+/*const express = require('express');
+const router = express.Router();
 var fs = require("fs");
-const PORT = process.env.PORT || 3000;
+
 var myData = {};
 readFile(async function (err, data) {
     myData = JSON.parse(data);
 });
+
 var myDataSubmission = {};
 fs.readFile(__dirname + "/" + "database/submissions.json", "utf8", async function (err, data) {
     myDataSubmission = JSON.parse(data);
 });
+
+function readFile(cb) {
+    fs.readFile(__dirname + "/" + "database/exams.json", "utf8", cb);
+}
 
 var exam4 = {
     "idExam": 4,
@@ -79,88 +85,64 @@ var submission4 = {
     }
 };
 
-app.get('/', (req, res) => res.send('Hello Word!'));
+router.get('/', (req, res) => res.send('Hello Word!'));
 
-app.get('/exams', function (req, res) {
+router.get('/exams', function (req, res) {
     res.end(JSON.stringify(myData));
 });
 
-app.get('/exams/idUser/:idUser', function (req, res) {
+router.get('/exams/idUser/:idUser', function (req, res) {
     const result = getExamsByUserId(req.params.idUser);
     res.end(JSON.stringify(result));
 });
 
-app.get('/exams/:id', function (req, res) {
+router.get('/exams/:id', function (req, res) {
     const result = getExamsById(req.params.id);
     res.end(JSON.stringify(result));
 });
 
-app.put('/exams/:id', function (req, res) {
-    const result = updateExam(req.params.id);
-    res.end(JSON.stringify(myData));
-});
-
-app.post('/exams', function (req, res) {
+router.put('/exams', function (req, res) {
     const result = putExam();
     res.end(JSON.stringify(myData));
 });
 
-app.delete('/exams/:id', function (req, res) {
+router.post('/exams', function (req, res) {
+    const result = updateExam();
+    res.end(JSON.stringify(myData));
+});
+
+router.delete('/exams/:id', function (req, res) {
     const result = deleteExam(req.params.id);
     res.end(JSON.stringify(myData));
 });
 
-app.get('/submissions', function (req, res) {
+router.get('/submissions', function (req, res) {
     res.end(JSON.stringify(myDataSubmission));
 });
 
-app.post('/submissions', function (req, res) {
+router.post('/submissions', function (req, res) {
     const result = submission();
     res.end(JSON.stringify(myDataSubmission));
 });
 
-app.listen(PORT, () => console.log('Example app listening on port' + PORT));
-
-function readFile(cb) {
-    fs.readFile(__dirname + "/" + "database/exams.json", "utf8", cb);
-}
-
 function getExamsById(id) {
-    if (isNaN(id)) {
-        return null;
+    var Exam = {};
+    for (var x in myData) {
+        if (myData[x].idExam == id) {
+            Exam = myData[x];
+        }
     }
-    else
-        if (id < 0) {
-            return null;
-        }
-        else {
-            var Exam = {};
-            for (var x in myData) {
-                if (myData[x].idExam == id) {
-                    Exam = myData[x];
-                }
-            }
-            return (Exam);
-        }
+    return(Exam);
 }
 
 function getExamsByUserId(idUser) {
-    if (isNaN(idUser)) {
-        return null;
+    var Exam = [];
+    for (var x in myData) {
+        if (myData[x].idUser == idUser) {
+            Exam.push(myData[x]);
+        }
     }
-    else
-        if (idUser < 0) {
-            return null;
-        }
-        else {
-            var Exam = [];
-            for (var x in myData) {
-                if (myData[x].idUser == idUser) {
-                    Exam.push(myData[x]);
-                }
-            }
-            return (Exam);
-        }
+    return(Exam);
 }
 
 function putExam() {
@@ -168,40 +150,22 @@ function putExam() {
     return true;
 }
 
-function updateExam(id) {
-    if (isNaN(id)) {
-        return null;
+function updateExam() {
+    for (var x in myData) {
+        if (myData[x].idExam == 2) {
+            myData[x] = exam2;
+        }
     }
-    else
-        if (id < 0) {
-            return null;
-        }
-        else {
-            for (var x in myData) {
-                if (myData[x].idExam == id) {
-                    myData[x] = exam2;
-                }
-            }
-            return (true);
-        }
+    return(true);
 }
 
 function deleteExam(id) {
-    if (isNaN(id)) {
-        return null;
+    for (var x in myData) {
+        if (myData[x].idExam == id) {
+            delete myData[x];
+        }
     }
-    else
-        if (id < 0) {
-            return null;
-        }
-        else {
-            for (var x in myData) {
-                if (myData[x].idExam == id) {
-                    delete myData[x];
-                }
-            }
-            return (true);
-        }
+    return(true);
 }
 
 function submission() {
@@ -209,11 +173,5 @@ function submission() {
     return true;
 }
 
-module.exports = {
-    examId: getExamsById,
-    userId: getExamsByUserId,
-    examPut: putExam,
-    examUpdate: updateExam,
-    examDelete: deleteExam,
-    submit: submission
-}
+module.exports = router;
+*/

@@ -398,26 +398,6 @@ paths:
     post:
       tags:
       - "exam"
-      summary: "Update the exam"
-      description: ""
-      operationId: "updateExam"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Created exam object"
-        required: true
-        schema:
-          $ref: "#/definitions/Exam"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/Exam"
-        400:
-          description: "Update failed"
-    put:
-      tags:
-      - "exam"
       summary: "Create an exam"
       description: ""
       operationId: "createExam"
@@ -453,6 +433,31 @@ paths:
             $ref: "#/definitions/Exam"
         404:
           description: "Exam not found"
+    put:
+      tags:
+      - "exam"
+      summary: "Update the exam"
+      description: ""
+      operationId: "updateExam"
+      parameters:
+      - name: "idExam"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Created exam object"
+        required: true
+        schema:
+          $ref: "#/definitions/Exam"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Exam"
+        400:
+          description: "Update failed"
     delete:
       tags:
       - "exam"
