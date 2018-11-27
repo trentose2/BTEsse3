@@ -52,7 +52,7 @@ function get_session_by_id (idSession) {
 //PUT,/sessionExams 
 function put_session(idSession, exams) {
 	const index = session_offered.findIndex((item) => {return item.id===idSession})
-	if (index!==-1) {
+	if (index!==-1 && exams !== null) {
 		session_offered[index] ={idSession, exams}
 		return 200
 	} else {
