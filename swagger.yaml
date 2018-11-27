@@ -474,17 +474,15 @@ paths:
     get:
       tags:
       - "sessionExam"
-      summary: "Return all the exams of a sessions"
+      summary: "Return all the sessions"
       description: ""
       operationId: "getSessionsExams"
       responses: 
-        200:
-          description: "OK"
           schema:
             $ref: "#/definitions/SessionExam"
         404:
           description: "Exam session not found"
-    post:
+    put:
       tags:
       - "sessionExam"
       summary: "Update exam session"
@@ -502,7 +500,7 @@ paths:
           description: "OK"
         404:
           description: "Exam session not found"
-    put:
+    post:
         tags:
         - "sessionExam"
         summary: "Create a exam session"
