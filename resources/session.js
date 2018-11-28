@@ -30,7 +30,7 @@ app.post('/sessionExams', (req, res) => {
 	}else {
         res.status(404);
 	}
- })
+ });
  //DELETE, /sessionExam/{idSession}
  app.delete('/sessionExams/:idSession', (req, res) => {
     const index = session_offered.findIndex((item) => {return item.id===req.params.idSession});
@@ -43,13 +43,14 @@ app.post('/sessionExams', (req, res) => {
           	count++;
     	}
    	if (count >1) {
-      res.sendStatus(400);
-    } else {
-      session_offered.splice(index,1);
-      console.log('\ndeleting ',req.params.idSession);
-      console.log('now:',session_offered);
-      res.sendStatus(200);
- }})
+      	res.sendStatus(400);
+	
+    	} else {
+	      session_offered.splice(index,1);
+	      console.log('\ndeleting ',req.params.idSession);
+	      console.log('now:',session_offered);
+	      res.sendStatus(200);
+	}}});
 
 //GET, sessionExams
 app.get('/sessionExams', (req, res) => {
@@ -85,7 +86,7 @@ app.put('/sessionExams', (req, res) => {
         res.sendStatus(200);
         res.json(old_session);
 	console.log(session_offered);
-}})
+}});
 
 //POST, /sessionExams
 function create_session(idSession, exams){
