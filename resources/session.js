@@ -64,13 +64,11 @@ app.get('/sessionExams/:idSession', (req,res) => {
       if (index ===-1) {
 	      res.sendStatus(404);
       } else {
-      var c = session_offered.idSession;
-      if (index===-1) {
-          res.sendstatus(404);
-      }else {
-	for(i=0;i<c.exams.lenght;i++) {
+	      var c = session_offered.idSession;
+	      for(i=0;i<c.exams.lenght;i++) {
         	res.json(c.exams);
-	}
+	      }
+      }
         res.sendStatus(200);
 });
 //PUT, /sessionExams
