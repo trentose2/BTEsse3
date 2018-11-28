@@ -1,4 +1,7 @@
 var fs = require('fs');
+const express = require('express');
+var router = express.Router();
+
 // var users = [];
 
 // fs.readFile('./users.json', 'utf8', async function(err, data) {
@@ -43,4 +46,7 @@ function delete_user_byId(id) {
 	return result;
 }
 
-module.exports = { get_user_byId, delete_user_byId };
+router.test_get_user_byId = get_user_byId;
+router.test_delete_user_byId = delete_user_byId;
+
+module.exports = router;
