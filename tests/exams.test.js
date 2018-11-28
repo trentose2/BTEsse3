@@ -1,9 +1,9 @@
-const examId = require('../api').examId;
-const userId = require('../api').userId;
-const examPut = require('../api').examPut;
-const examUpdate = require('../api').examUpdate;
-const examDelete = require('../api').examDelete;
-const submit = require('../api').submit;
+const examId = require('../resources/exams').examId;
+const userId = require('../resources/exams').userId;
+const examPut = require('../resources/exams').examPut;
+const examUpdate = require('../resources/exams').examUpdate;
+const examDelete = require('../resources/exams').examDelete;
+const submit = require('../resources/exams').submit;
 
 test('idExam correct', () => {
     expect(examId(1)).toBeDefined();
@@ -24,11 +24,11 @@ test('idUser incorrect', () => {
     expect(userId("a")).toBeNull();
     expect(userId(-1)).toBeNull();
 })
-/* ERROR myData.push(...) perchè myData è undefined
+
 test('put the exam', () => {
     expect(examPut()).toBeTruthy();
 })
-*/
+
 test('update the exam correctly', () => {
     expect(examUpdate(1)).toBeTruthy();
 })
@@ -46,8 +46,7 @@ test('delete the exam not correctly', () => {
     expect(examDelete("a")).toBeNull();
     expect(examDelete(-1)).toBeNull();
 })
-/* ERROR myData.push(...) perchè myData è undefined
+
 test('submit the exam', () => {
     expect(submit()).toBeTruthy();
 })
-*/
