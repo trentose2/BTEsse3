@@ -374,19 +374,13 @@ paths:
           description: "OK"
         400:
           description: "Evaluation of the review failed"
-  /exams/idUsers/{idUser}:
+  /exams:
     get:
       tags:
       - "exam"
-      summary: "Return the exams created by user"
+      summary: "Return all the exams"
       description: ""
       operationId: "getExams"
-      parameters:
-      - name: "idUser"
-        in: "path"
-        required: true
-        description: "Return the exams created by user"
-        type: "integer"
       responses: 
         200:
           description: "OK"
@@ -394,7 +388,6 @@ paths:
             $ref: "#/definitions/Exam"
         404:
           description: "Exam not found"
-  /exams:
     post:
       tags:
       - "exam"
@@ -413,6 +406,26 @@ paths:
           description: "OK"
         400:
           description: "Exam creation failed"
+  /exams/idUsers/{idUser}:
+    get:
+      tags:
+      - "exam"
+      summary: "Return the exams created by user"
+      description: ""
+      operationId: "getExamsbyUserId"
+      parameters:
+      - name: "idUser"
+        in: "path"
+        required: true
+        description: "Return the exams created by user"
+        type: "integer"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Exam"
+        404:
+          description: "Exam not found"
   /exams/{idExam}:
     get:
       tags:
@@ -563,6 +576,19 @@ paths:
         404:
           description: "Exam session not found"
   /submissions:
+    get:
+      tags:
+      - "submission"
+      summary: "Get the submissions"
+      description: ""
+      operationId: "getSubmittedExam"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Submission"
+        404:
+          description: "Submissions not found"
     post:
       tags:
       - "submission"
