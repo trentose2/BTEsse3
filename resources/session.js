@@ -41,15 +41,15 @@ app.post('/sessionExams', (req, res) => {
     	for(i=0;i<session_offered.lenght;i++) { //controllo che sia unico
       		if (session_offered[l].id===req.params.idSession);
           	count++;
-    }
-    if (count >1) {
+    	}
+   	if (count >1) {
       res.sendStatus(400);
     } else {
       session_offered.splice(index,1);
       console.log('\ndeleting ',req.params.idSession);
       console.log('now:',session_offered);
       res.sendStatus(200);
- }}})
+ }})
 
 //GET, sessionExams
 app.get('/sessionExams', (req, res) => {
@@ -71,7 +71,7 @@ app.get('/sessionExams/:idSession', (req,res) => {
         	res.json(c.exams);
 	}
         res.sendStatus(200);
-}}});
+});
 //PUT, /sessionExams
 app.put('/sessionExams', (req, res) => {
     //controllo se c'è la sessione
@@ -85,7 +85,7 @@ app.put('/sessionExams', (req, res) => {
         res.sendStatus(200);
         res.json(old_session);
 	console.log(session_offered);
-}}}})
+}})
 
 //POST, /sessionExams
 function create_session(idSession, exams){
@@ -107,6 +107,8 @@ function delete_session(idSession){
 		} else {
 			session_offered.splice(index,1);
 			return 200;
+		}
+}
 //GET, /sessionExams
 function get_sessions() {
     if (session_offered !== null) {
@@ -124,7 +126,6 @@ function get_session_by_id (idSession) {
 			 return 404;
 
 		    }
-		}
 }
 
 //PUT,/sessionExams
