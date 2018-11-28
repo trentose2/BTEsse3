@@ -1,8 +1,8 @@
-const put_session = require('../resources/session.js').put_session;
-const get_session_by_id = require('../resources/session.js').get_session_by_id;
-const get_sessions = require('../resources/session.js').get_sessions;
-const delete_session = require('../resources/session.js').delete_session;
-const create_session = require('../resources/session.js').create_session;
+const put_session = require('./session.js').put_session;
+const get_session_by_id = require('./session.js').get_session_by_id;
+const get_sessions = require('./session.js').get_sessions;
+const delete_session = require('./session.js').delete_session;
+const create_session = require('./session.js').create_session;
 
 var session_offered = [{idSession:23, exams: [{nameExam:'prova1', idExam:74},{nameExam:'prova2',idExam:12}]},
                        {idSession:28, exams: [{nameExam:'prova2', idExam:72},{nameExam:'prova3',idExam:91}]}];
@@ -30,7 +30,6 @@ test('test if i uses a idSession that does not exist, delete send error', () => 
 test('test if the array of all the session is empty, then GET failed (after delete the only 2 sessions in the array)', () => {
     delete_session(23);
     delete_session(28);
-    get_sessions();
     expect(get_sessions()).toBe(404);
 });
 
