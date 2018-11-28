@@ -14,8 +14,8 @@ test('test if session number 23 is deleted successfully', () => {
 });
 test('test if session number 23 is deleted for sure', () => {
     delete_session(23)
-    put_session(23, [{'prova5', 4}])
-    expect(put_session(23,[{'prova5', 4}])).toBe(404)
+    put_session(23, {nameExam:'prova5', idExam:4})
+    expect(put_session(23,{nameExam:'prova5', idExam:4})).toBe(404)
 });
 test('test if delete accepts only positive integer value of idSession', () => {
     delete_session('abcd')
@@ -40,47 +40,47 @@ test('test if the array of all the session is empty, then GET failed (after dele
 
 //POST test (to create a session)
 test('test if post accepts only positive integer value of idSession', () => {
-    create_session('efgh', {'prova5', 4})
-    expect(create_session('efgh', {'prova5', 4})).toBe(404)
+    create_session('efgh', {nameExam:'prova5',idExam:4})
+    expect(create_session('efgh', {nameExam:'prova5',idExam:4})).toBe(404)
 });
 test('test if post accepts only positive integer value of idSession', () => {
-    create_session(-45,[{'prova5', 4}])
-    expect(create_session(-45, [{'prova5', 4}])).toBe(404)
+    create_session(-45,{nameExam:'prova5',idExam:4})
+    expect(create_session(-45, {nameExam:'prova5',idExam:4})).toBe(404)
 });
 test('test that if exam is empty, post send error', () => {
     create_session(56, '')
     expect(delete_session(56,'')).toBe(404)
 });
 test('test that if you want to create a new session with an idSession that already exist, post send error', () => {
-    create_session(23,[{'prova5', 4}])
-    expect(create_session(23,[{'prova5', 4}])).toBe(404)
+    create_session(23,{nameExam:'prova5',idExam:4})
+    expect(create_session(23,{nameExam:'prova5',idExam:4})).toBe(404)
 });
 test('test if a session is created correctly', () => {
-    create_session(67,[{'prova5', 4}])
-    put_session(67,[{'prova7', 8}])
+    create_session(67,{nameExam:'prova5', idExam:4})
+    put_session(67,{nameExam:'prova7', idExam:8})
     expect(put_session(67)).toBe(200)
 });
 
 //PUT tests (to upload a session)
 test('test if put accepts only positive integer value of idSession', () => {
-    put_session('xyz', [{'prova5', 4}])
-    expect(put_session('xyz', [{'prova5', 4}])).toBe(404)
+    put_session('xyz', {nameExam:'prova5', idExam:4})
+    expect(put_session('xyz', {nameExam:'prova5', idExam:4})).toBe(404)
 });
 test('test if put accepts only positive integer value of idSession', () => {
-    put_session(-45,[{'prova5', 4}])
-    expect(put_session(-45, {'prova5', 4}])).toBe(404)
+    put_session(-45,{nameExam:'prova5', idExam:4})
+    expect(put_session(-45, {nameExam:'prova5', idExam:4})).toBe(404)
 });
 test('test that if exam is empty, put send error', () => {
     put_session(23, '')
     expect(put_session(23,'')).toBe(404)
 });
 test('test that if put works', () => {
-    put_session(23, [{'prova5', 4}])
-    expect(put_session(23,[{'prova5', 4}])).toBe(200)
+    put_session(23, {nameExam:'prova5', idExam:4})
+    expect(put_session(23,{nameExam:'prova5', idExam:4})).toBe(200)
 });
 test('test that if i use a idSession that does not exists, put send error', () => {
-    put_session(95, [{'prova5', 4}])
-    expect(put_session(95,[{'prova5', 4}])).toBe(404)
+    put_session(95, {nameExam:'prova5', idExam:4})
+    expect(put_session(95,{nameExam:'prova5', idExam:4})).toBe(404)
 });
 
 //GET, {idSession} tests (to return the exams of a session by id)
