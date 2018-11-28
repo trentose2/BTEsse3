@@ -138,8 +138,8 @@ function put_session(idSession, exams) {
 	}
 }
 
-module export = {put_session,
+module.exports = {put_session,
 		get_session_by_id,
 		get_sessions,
 		delete_session,
-		create_session};
+		create_session}
