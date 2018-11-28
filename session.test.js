@@ -30,7 +30,6 @@ test('test if i uses a idSession that does not exist, delete send error', () => 
 test('test if the array of all the session is empty, then GET failed (after delete the only 2 sessions in the array)', () => {
     delete_session(23);
     delete_session(28);
-    get_sessions();
     expect(get_sessions()).toBe(404);
 });
 
