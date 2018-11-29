@@ -1,21 +1,17 @@
 var fs = require('fs');
 const express = require('express');
+const FAKE_DB_PATH = './database/users.json'
 var router = express.Router();
 
-// var users = [];
+var users = [];
 
-// fs.readFile('./users.json', 'utf8', async function(err, data) {
-	// console.log(data);
-	// console.log(err);
-	// users = JSON.parse(data);
-// });
-
-var users = [
-	{"id": 11, "username": "username1", "email": "email1", "password": "password1"},
-	{"id": 12, "username": "username2", "email": "email2", "password": "password2"}
-];
+function read_data() {
+	return JSON.parse(fs.readFileSync('./database/users.json', 'utf8'));
+}
 
 function get_user_byId(id) {
+	users = read_data();
+	
 	if ((!Number.isInteger(id)) || (id < 0) || (isNaN(id))) {
 		return null;
 	}
@@ -29,6 +25,8 @@ function get_user_byId(id) {
 }
 
 function delete_user_byId(id) {
+	users = read_data();
+	
 	if ((!Number.isInteger(id)) || (id < 0) || (isNaN(id))) {
 		return null;
 	}
