@@ -179,6 +179,7 @@ function put_session(idSession, exams) {
 		for (var h in session_offered) {
 			if (session_offered[h].idSession == idSession) {
 				d = false;
+				break;
 			}
 		}
 		if (d == false) {
