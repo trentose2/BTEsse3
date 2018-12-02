@@ -27,14 +27,6 @@ test('test if i uses a idSession that does not exist, delete send error', () => 
     expect(delete_session(77)).toBe(404);
 });
 
-//GET tests (to return all the sessions)
-test('test if the array of all the session is empty, then GET failed (after delete the only 3 sessions in the array)', () => {
-    delete_session(23);
-    delete_session(28);
-    delete_session(32);
-    expect(get_sessions()).toBe(404);
-});
-
 //POST test (to create a session)
 test('test if post accepts only positive integer value of idSession', () => {
     expect(create_session('efgh', {nameExam: 'prova5', idExam:4})).toBe(400);
@@ -82,4 +74,12 @@ test('test if put accepts only positive integer value of idSession', () => {
 });
 test('test that if i use an idSession that does not exist, get send me error', () => {
     expect(get_session_by_id(34)).toBe(404);
+});
+
+//GET tests (to return all the sessions)
+test('test if the array of all the session is empty, then GET failed (after delete the only 3 sessions in the array)', () => {
+    delete_session(23);
+    delete_session(28);
+    delete_session(32);
+    expect(get_sessions()).toBe(404);
 });
