@@ -1,145 +1,198 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+const router = express.Router();
 
 const app = express();
-app.use( bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3000;
 
 const SOME_NUM = process.env.def || 40;
 
-var session_offered = [{idSession:23, exams: [{nameExam:'prova1', idExam:74},{nameExam:'prova2',idExam:12}]},
-                       {idSession:28, exams: [{nameExam:'prova2', idExam:74},{nameExam:'prova3',idExam:91}]}];
+var session_offered = [{ idSession: 23, exams: [{ nameExam: 'prova1', idExam: 74 }, { nameExam: 'prova2', idExam: 12 }] },
+{ idSession: 28, exams: [{ nameExam: 'prova2', idExam: 74 }, { nameExam: 'prova3', idExam: 91 }] },
+{ idSession: 32, exams: [{ nameExam: 'prova2', idExam: 74 }, { nameExam: 'prova3', idExam: 91 }] }];
 
 
 
 //POST, sessionExam
-app.post('/sessionExams', (req, res) => {
-    const new_idSession = req.body.idSession;
-    const new_exams= req.body.exams;
-    const new_session = [{idSession:91, exams: [{nameExam:prova5, idExam:47},{nameExam:prova6,idExam:22}]}];
-    session_offered.push(new_session);
-    //controllo se c'è la nuova sessione
-    const index = session_offered.findIndex((item) => {return item.id===req.params.idSession});
-    if (index!==-1) {
-        res.sendstatus(200);
-        res.json(new_session);
-        console.log(session_offered);
-		console.log('done');
-	}else {
-        res.status(404);
+router.post('/sessionExams/post', (req, res) => {
+	if (isNaN(req.params.idSession) || req.params.idSession < 0 || req.params.exams == "") {
+		res.sendStatus(400);
+	} else {
+		const new_session = { idSession: req.body.idSession, exams: req.body.exams };
+		var w = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession !== req.params.idSession) {
+				w = true;
+			}
+		}
+		if (w == true) {
+			session_offered.push(new_session);
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(404);
+		}
 	}
- });
- //DELETE, /sessionExam/{idSession}
- app.delete('/sessionExams/:idSession', (req, res) => {
-    const index = session_offered.findIndex((item) => {return item.id===req.params.idSession});
-    if (index===-1) {
-        res.sendstatus(404);
-    } else {
-	var count = 0;
-    	for(i=0;i<session_offered.lenght;i++) { //controllo che sia unico
-      		if (session_offered[l].id===req.params.idSession);
-          	count++;
-    	}
-   	if (count >1) {
-      	res.sendStatus(400);
-	
-    	} else {
-	      session_offered.splice(index,1);
-	      console.log('\ndeleting ',req.params.idSession);
-	      console.log('now:',session_offered);
-	      res.sendStatus(200);
-	}}});
+});
+//DELETE, /sessionExam/{idSession}
+router.delete('/sessionExams/del/:idSession', (req, res) => {
+	if (isNaN(req.params.idSession) || req.params.idSession < 0) {
+		res.sendStatus(400);
+	} else {
+		var y = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession == req.params.idSession) {
+				y = true;
+			}
+		}
+		if (y == true) {
+			session_offered.splice(index, 1);
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(404);
+		}
+
+	}
+});
 
 //GET, sessionExams
-app.get('/sessionExams', (req, res) => {
-    res.json(session_offered);
-    res.sendStatus(200);
+router.get('/sessionExams', (req, res) => {
+	res.json(session_offered);
+	res.sendStatus(200);
 });
 
 //GET,/sessionExams/{idSession}
-app.get('/sessionExams/:idSession', (req,res) => {
-      const index = session_offered.findIndex((item) => {return item.id===req.params.idSession});
-      if (index ===-1) {
-	      res.sendStatus(404);
-      } else {
-	      var c = session_offered.idSession;
-	      for(i=0;i<c.exams.lenght;i++) {
-        	res.json(c.exams);
-	      }
-      }
-        res.sendStatus(200);
+router.get('/sessionExams/:idSession', (req, res) => {
+	if (isNaN(req.params.idSession) || req.params.idSession < 0) {
+		res.sendStatus(404);
+	} else {
+		var y = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession == req.params.idSession) {
+				y = true;
+			}
+		}
+		if (y == true) {
+			res.json(session_offered[x].exams);
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(404);
+		}
+	}
 });
 //PUT, /sessionExams
-app.put('/sessionExams', (req, res) => {
-    //controllo se c'è la sessione
-    const index = session_offered.findIndex((item) => {return item.id===req.params.idSession});
-    if (index===-1) {
-	res.sendStatus(400);
-    } else {
-	const old_idSession = req.body.idSession;
-    	const old_exams = req.body.exams;
-	session_offered[index] ={old_idSession, old_exams};
-        res.sendStatus(200);
-        res.json(old_session);
-	console.log(session_offered);
-}});
+router.put('/sessionExams', (req, res) => {
+	if (isNaN(req.params.idSession) || req.params.idSession < 0 || req.params.exams == "") {
+		res.sendStatus(400);
+	} else {
+		var z = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession == req.params.idSession) {
+				z = true;
+			}
+		}
+		if (z == true) {
+			session_offered[x] = { idSession: req.params.idSession, exams: req.params.exams };
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(404);
+		}
+	}
+});
 
 //POST, /sessionExams
-function create_session(idSession, exams){
-		const index = session_offered.findIndex((item) => {return item.id===idSession});
-		if (index===-1 && exam !== null) {
-			session_offered[index] ={idSession, exams};
-			return 200;
-		} else {
-			return 404;
-
-    		}
-}
-
- //DELETE, /sessionExam/{idSession}
-function delete_session(idSession){
-	const index = session_offered.findIndex((item) => {return item.id===idSession});
-		if (index===-1) {
-			return 404;
-		} else {
-			session_offered.splice(index,1);
-			return 200;
+function create_session(idSession, exams) {
+	if (isNaN(idSession) || idSession < 0 || exams == "") {
+		return 400;
+	} else {
+		var z = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession !== idSession) {
+				z = true;
+			}
 		}
+		if (z == true) {
+			session_offered[x] = { idSession: idSession, exams: exams };
+			return 200;
+		} else {
+			return 404;
+		}
+	}
 }
+
+//DELETE, /sessionExam/{idSession}
+function delete_session(idSession) {
+	if (isNaN(idSession) || idSession < 0) {
+		return 400;
+	} else {
+		var z = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession == idSession) {
+				z = true;
+			}
+		}
+		if (z == true) {
+			session_offered.splice(x, 1);
+			return 200;
+		} else {
+			return 404;
+		}
+	}
+}
+
 //GET, /sessionExams
 function get_sessions() {
-    if (session_offered !== null) {
-    	return session_offered;
-    } else {
-	return 404;
-}}
-
-//GET,/sessionExams/{idSession}
-function get_session_by_id (idSession) {
- 	const index = session_offered.findIndex((item) => {return item.id===idSession});
-		if (index!==-1) {
-			return session_offered[index].exams;
-		    }else {
-			 return 404;
-
-		    }
-}
-
-//PUT,/sessionExams
-function put_session(idSession, exams) {
-	const index = session_offered.findIndex((item) => {return item.id===idSession});
-	if (index!==-1 && exams !== null) {
-		session_offered[index] ={idSession, exams};
-		return 200;
+	if (session_offered !== "") {
+		return session_offered;
 	} else {
 		return 404;
 	}
 }
 
-module.exports = {put_session,
-		get_session_by_id,
-		get_sessions,
-		delete_session,
-		create_session}
+//GET,/sessionExams/{idSession}
+function get_session_by_id(idSession) {
+	if (isNaN(idSession) || idSession < 0) {
+		return 400;
+	} else {
+		var z = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession == idSession) {
+				z = true;
+			}
+		}
+		if (z == true) {
+			return session_offered[x].exams;
+		} else {
+			return 404;
+		}
+	}
+}
+
+//PUT,/sessionExams
+function put_session(idSession, exams) {
+	if (isNaN(idSession) || idSession < 0 || exams == "") {
+		return 400;
+	} else {
+		var z = false;
+		for (var x in session_offered) {
+			if (session_offered[x].idSession == idSession) {
+				z = true;
+			}
+		}
+		if (z == true) {
+			session_offered[x] = { idSession: idSession, exams: exams };
+			return 200;
+		} else {
+			return 404;
+		}
+	}
+}
+
+router.put_session = put_session;
+router.get_session_by_id = get_session_by_id;
+router.get_sessions = get_sessions;
+router.delete_session = delete_session;
+router.create_session = create_session;
+module.exports = router;
