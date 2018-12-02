@@ -34,6 +34,16 @@ router.post('/', function (req, res) {
   }
 });
 
+router.put('/', function (req, res) {
+  if (update_task(req.body)) {
+    res.write("task updated");
+    res.statusCode = 200;
+  } else {
+    res.statusCode = 400;
+    res.write("Unable to update task");
+  }
+});
+
 function is_task_type(elem) {
   return elem.id !== undefined && elem.response !== undefined &&
     elem.type !== undefined && elem.request !== undefined;
@@ -70,6 +80,11 @@ function create_task(task) {
 
   if (is_task_type(task)) {
     retval = true;
+    /* NOTE:
+     * relies on ordination by id. 
+     * This shit will be modified when 
+     * there will be a real DB. 
+    */
     task.id = data[data.length -1].id + 1;
     data.push(task);
     write_data(data);
@@ -93,8 +108,19 @@ function delete_task(id) {
 }
 
 function update_task(task) {
+  var tasks = read_data();
+  if (is_task_type(task)) {
+    for (var i in tasks) {
+      if (tasks[i].id == task.id) {
+        tasks.splice(i, 1, task);
+        write_data(tasks);
+        return true;
+      }
+    }
+  }
   return false;
 }
+
 /* exported functions (I KNOW THIS IS SHITTY) */
 router.test_fun_get_tasks = get_tasks;
 router.test_fun_create_task = create_task;
