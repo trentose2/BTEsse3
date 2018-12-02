@@ -38,7 +38,7 @@ test('test that if exam is empty, post send error', () => {
     expect(create_session(56, '')).toBe(400);
 });
 test('test that if you want to create a new session with an idSession that already exist, post send error', () => {
-    expect(create_session(23, {nameExam: 'prova5', idExam: 4})).toBe(404);
+    expect(create_session(32, {nameExam: 'prova5', idExam: 4})).toBe(404);
 });
 test('test if a session is created correctly for sure', () => {
     create_session(77, {nameExam:'prova9', idExam:6});
