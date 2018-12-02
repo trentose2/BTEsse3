@@ -67,7 +67,7 @@ test('test that if exam is empty, put send error', () => {
     expect(put_session(23, '')).toBe(400);
 });
 test('test that if put works', () => {
-    expect(put_session(23, {nameExam:'prova5', idExam:4})).toBe(200);
+    expect(put_session(32, {nameExam:'prova5', idExam:4})).toBe(200);
 });
 test('test that if i use a idSession that does not exists, put send error', () => {
     expect(put_session(95, {nameExam:'prova5', idExam:4})).toBe(404);
