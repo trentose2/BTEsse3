@@ -176,13 +176,13 @@ function put_session(idSession, exams) {
 		return 400;
 	} else {
 		var d = true;
-		for (var x in session_offered) {
-			if (session_offered[x].idSession == idSession) {
+		for (var h in session_offered) {
+			if (session_offered[h].idSession == idSession) {
 				d = false;
 			}
 		}
 		if (d == false) {
-			session_offered[x] = {idSession:idSession, exams:exams};
+			session_offered[h] = {idSession:idSession, exams:exams};
 			return 200;
 		} else {
 			return 404;
