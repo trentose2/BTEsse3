@@ -68,13 +68,13 @@ router.get('/sessionExams/:idSession', (req, res) => {
 	if (isNaN(req.params.idSession) || req.params.idSession < 0) {
 		res.sendStatus(404);
 	} else {
-		var y = false;
+		var f = false;
 		for (var x in session_offered) {
 			if (session_offered[x].idSession == req.params.idSession) {
-				y = true;
+				f = true;
 			}
 		}
-		if (y == true) {
+		if (f == true) {
 			res.json(session_offered[x].exams);
 			res.sendStatus(200);
 		} else {
@@ -87,13 +87,13 @@ router.put('/sessionExams', (req, res) => {
 	if (isNaN(req.params.idSession) || req.params.idSession < 0 || req.params.exams == "") {
 		res.sendStatus(400);
 	} else {
-		var z = false;
+		var g = false;
 		for (var x in session_offered) {
 			if (session_offered[x].idSession == req.params.idSession) {
-				z = true;
+				g = true;
 			}
 		}
-		if (z == true) {
+		if (g == true) {
 			session_offered[x] = {idSession:req.params.idSession, exams:req.params.exams};
 			res.sendStatus(200);
 		} else {
@@ -107,13 +107,13 @@ function create_session(idSession, exams) {
 	if (isNaN(idSession) || idSession < 0 || exams == "") {
 		return 400;
 	} else {
-		var z = true;
+		var a = true;
 		for (var x in session_offered) {
 			if (session_offered[x].idSession == idSession) {
-				z = false;
+				a = false;
 			}
 		}
-		if (z == true) {
+		if (a == true) {
 			session_offered[x] = {idSession:idSession, exams:exams};
 			return 200;
 		} else {
@@ -127,13 +127,13 @@ function delete_session(idSession) {
 	if (isNaN(idSession) || idSession < 0) {
 		return 400;
 	} else {
-		var z = false;
+		var b = false;
 		for (var x in session_offered) {
 			if (session_offered[x].idSession == idSession) {
-				z = true;
+				b = true;
 			}
 		}
-		if (z == true) {
+		if (b == true) {
 			session_offered.splice(x, 1);
 			return 200;
 		} else {
@@ -156,13 +156,13 @@ function get_session_by_id(idSession) {
 	if (isNaN(idSession) || idSession < 0) {
 		return 400;
 	} else {
-		var z = false;
+		var c = false;
 		for (var x in session_offered) {
 			if (session_offered[x].idSession == idSession) {
-				z = true;
+				c = true;
 			}
 		}
-		if (z == true) {
+		if (c == true) {
 			return session_offered[x].exams;
 		} else {
 			return 404;
@@ -175,13 +175,13 @@ function put_session(idSession, exams) {
 	if (isNaN(idSession) || idSession < 0 || exams == "") {
 		return 400;
 	} else {
-		var z = false;
+		var d = false;
 		for (var x in session_offered) {
 			if (session_offered[x].idSession == idSession) {
-				z = true;
+				d = true;
 			}
 		}
-		if (z == true) {
+		if (d == true) {
 			session_offered[x] = {idSession:idSession, exams:exams};
 			return 200;
 		} else {
