@@ -1,9 +1,11 @@
 const tasks = require('../resources/tasks')
 
+/* TODO: remove this function */
 function is_task_type(elem) {
   return elem.id !== undefined && elem.response !== undefined &&
     elem.type !== undefined && elem.request !== undefined;
 }
+
 test('should get a task', async () => {
   var valid_index = 1;
   /*
@@ -27,4 +29,25 @@ test('shouldn\'t find the task', () => {
 test('should be able to return all tasks', () => {
   var task_list = tasks.test_fun_get_tasks();
   expect(Array.isArray(task_list)).toBeTruthy();
+})
+
+test('should be able to create the task', () => {
+  var task = 
+    {
+      type: "TEST_TYPE", 
+      request: "Non al denaro, non all'amore, ne al?",
+      response: "cielo"
+    }; 
+  expect(tasks.test_fun_create_task(task)).toBeTruthy();
+})
+
+test('should not create wrong type task', () => {
+  var no_task = 
+    {
+      type: "WRONG",
+      RESTinpeace: "RIP",
+      letsgototheBAR: "the foo bar"
+    }
+
+  expect(! tasks.test_fun_create_task(no_task)).toBeTruthy();
 })
