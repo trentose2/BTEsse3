@@ -107,10 +107,10 @@ function create_session(idSession, exams) {
 	if (isNaN(idSession) || idSession < 0 || exams == "") {
 		return 400;
 	} else {
-		var z = false;
+		var z = true;
 		for (var x in session_offered) {
-			if (session_offered[x].idSession !== idSession) {
-				z = true;
+			if (session_offered[x].idSession == idSession) {
+				z = false;
 			}
 		}
 		if (z == true) {
