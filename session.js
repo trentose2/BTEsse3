@@ -15,16 +15,16 @@ var session_offered = [{ idSession: 23, exams: [{ nameExam: 'prova1', idExam: 74
 { idSession: 32, exams: [{ nameExam: 'prova2', idExam: 74 }, { nameExam: 'prova3', idExam: 91 }] }];
 
 
-
 //POST, sessionExam
 router.post('/sessionExams/post', (req, res) => {
 	if (isNaN(req.params.idSession) || req.params.idSession < 0 || req.params.exams == "") {
 		res.sendStatus(400);
 	} else {
+		var lenght = session_offered.length;
 		const new_session = {idSession:req.body.idSession, exams:req.body.exams};
 		var w = true;
-		for(let i = 0; i < session_offered.length; i++) { {
-			if (session_offered[l].idSession == req.params.idSession) {
+		for(let i = 0; i < length; i++) { {
+			if (session_offered[i].idSession == req.params.idSession) {
 				w = false;
 			}
 		}
@@ -42,13 +42,14 @@ router.delete('/sessionExams/del/:idSession', (req, res) => {
 		res.sendStatus(400);
 	} else {
 		var y = true;
-		for(let i = 0; i <  session_offered.length; i++) { {
-			if (session_offered[l].idSession == req.params.idSession) {
+		var lenght = session_offered.length;
+		for(let i = 0; i < length; i++) { {
+			if (session_offered[i].idSession == req.params.idSession) {
 				y = false;
 			}
 		}
 		if (y == false) {
-			session_offered.splice(l, 1);
+			session_offered.splice(i, 1);
 			res.sendStatus(200);
 		} else {
 			res.sendStatus(404);
@@ -69,13 +70,14 @@ router.get('/sessionExams/:idSession', (req, res) => {
 		res.sendStatus(404);
 	} else {
 		var f = true;
-		for(let i = 0; i < session_offered.length; i++) {
-			if (session_offered[l].idSession == req.params.idSession) {
+		var lenght = session_offered.length;
+		for(let i = 0; i < length; i++) {
+			if (session_offered[i].idSession == req.params.idSession) {
 				f = false;
 			}
 		}
 		if (f == false) {
-			res.json(session_offered[l].exams);
+			res.json(session_offered[i].exams);
 			res.sendStatus(200);
 		} else {
 			res.sendStatus(404);
@@ -88,13 +90,14 @@ router.put('/sessionExams', (req, res) => {
 		res.sendStatus(400);
 	} else {
 		var g = true;
-		for(let i = 0; i < session_offered.length; i++) {
-			if (session_offered[l].idSession == req.params.idSession) {
+		var lenght = session_offered.length;
+		for(let i = 0; i < length; i++) {
+			if (session_offered[i].idSession == req.params.idSession) {
 				g = false;
 			}
 		}
 		if (g == false) {
-			session_offered[l] = {idSession:req.params.idSession, exams:req.params.exams};
+			session_offered[i] = {idSession:req.params.idSession, exams:req.params.exams};
 			res.sendStatus(200);
 		} else {
 			res.sendStatus(404);
@@ -108,13 +111,14 @@ function create_session(idSession, exams) {
 		return 400;
 	} else {
 		var a = true;
-		for(let i = 0; i <  session_offered.length; i++) {
-			if (session_offered[l].idSession == idSession) {
+		var lenght = session_offered.length;
+		for(let i = 0; i < length; i++) {
+			if (session_offered[i].idSession == idSession) {
 				a = false;
 			}
 		}
 		if (a == true) {
-			session_offered[l] = {idSession:idSession, exams:exams};
+			session_offered[i] = {idSession:idSession, exams:exams};
 			return 200;
 		} else {
 			return 404;
@@ -128,13 +132,14 @@ function delete_session(idSession) {
 		return 400;
 	} else {
 		var b = true;
-		for(let i = 0; i < session_offered.length; i++) {
-			if (session_offered[l].idSession == idSession) {
+		var lenght = session_offered.length;
+		for(let i = 0; i < length; i++) {
+			if (session_offered[i].idSession == idSession) {
 				b = false;
 			}
 		}
 		if (b == false) {
-			session_offered.splice(l, 1);
+			session_offered.splice(i, 1);
 			return 200;
 		} else {
 			return 404;
@@ -157,13 +162,14 @@ function get_session_by_id(idSession) {
 		return 400;
 	} else {
 		var c = true;
-		for(let i = 0; i < session_offered.length; i++) {
-			if (session_offered[l].idSession == idSession) {
+		var lenght = session_offered.length;
+		for(let i = 0; i < length; i++) {
+			if (session_offered[i].idSession == idSession) {
 				c = false;
 			}
 		}
 		if (c == false) {
-			return session_offered[l].exams;
+			return session_offered[i].exams;
 		} else {
 			return 404;
 		}
@@ -176,14 +182,15 @@ function put_session(idSession, exams) {
 		return 400;
 	} else {
 		var d = true;
-		for(let i = 0; i <  session_offered.length; i++) {
-			if (session_offered[l].idSession == idSession) {
+		var lenght = session_offered.length;
+		for(let i = 0; i < length; i++) {
+			if (session_offered[i].idSession == idSession) {
 				d = false;
 				break;
 			}
 		}
 		if (d == false) {
-			session_offered[l] = {idSession:idSession, exams:exams};
+			session_offered[i] = {idSession:idSession, exams:exams};
 			return 200;
 		} else {
 			return 404;
