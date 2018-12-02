@@ -32,13 +32,23 @@ test('should be able to return all tasks', () => {
 })
 
 test('should be able to create the task', () => {
+  var task_list_length = tasks.test_fun_get_tasks().length;
+  var task_list = null;
+
   var task = 
     {
       type: "TEST_TYPE", 
       request: "Non al denaro, non all'amore, ne al?",
       response: "cielo"
     }; 
+
   expect(tasks.test_fun_create_task(task)).toBeTruthy();
+  
+  task_list = tasks.test_fun_get_tasks();
+
+  for (var field in task) {
+    expect(task_list[task_list.length -1][field]).toBe(task[field]);
+  }
 })
 
 test('should not create wrong type task', () => {
@@ -51,3 +61,29 @@ test('should not create wrong type task', () => {
 
   expect(! tasks.test_fun_create_task(no_task)).toBeTruthy();
 })
+
+test('should update a prev created task', () => {
+  var task =
+    {
+      type: "TEST",
+      request: "test_req",
+      response: "test_res"
+    }
+  var task_list = null;
+  var other_task = null;
+
+  expect(tasks.test_fun_create_task(task)).toBeTruthy();
+
+  task_list = tasks.test_fun_get_tasks();
+  task.id = task_list[task_list.length -1].id;
+  task.request = "Vuoi davvero lasciare ai tuoi occhi solo i sogni che non fanno svegliare?";
+  task.response = "Si vostro onore, ma li voglio piu' grandi";
+  task.type= "mooseca";
+  expect(tasks.test_fun_update_task(task)).toBeTruthy();
+
+  other_task = tasks.test_fun_get_task_by_id(task.id);
+
+  for (var field in task) {
+    expect(other_task[field]).toBe(task[field]);
+  }
+});
