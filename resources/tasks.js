@@ -24,10 +24,28 @@ router.get('/', function (req, res) {
   return res.json(tasks);
 });
 
+router.post('/', function (req, res) {
+  if (create_task(req.body)) {
+    res.write("task created");
+    res.statusCode = 200;
+  } else { 
+    res.statusCode = 400;
+    res.write("Invalid post call!!!");
+  }
+});
+
+function is_task_type(elem) {
+  return elem.id !== undefined && elem.response !== undefined &&
+    elem.type !== undefined && elem.request !== undefined;
+}
+
 function read_data() {
   return JSON.parse(fs.readFileSync(FAKE_DB_PATH, 'utf8'));
 }
 
+function write_data(tasks) {
+  fs.writeFileSync(FAKE_DB_PATH, JSON.stringify(tasks));
+}
 function get_tasks() {
   return read_data();
 }
@@ -45,13 +63,42 @@ function get_task_by_id(id) {
 }
 
 function create_task(task) {
+  var retval;
+  var data = read_data();
 
+  task.id = -1;
+
+  if (is_task_type(task)) {
+    retval = true;
+    task.id = data[data.length -1].id + 1;
+    data.push(task);
+    write_data(data);
+  } else { retval = false; }
+
+  return retval;
 }
 
 function delete_task(id) {
+  var tasks = read_data();
 
+  for (var i in tasks) {
+    if (tasks[i].id == id) {
+      tasks.splice(i, 1);
+      write_data(tasks);
+      return true;
+    }
+  }
+
+  return false;
 }
 
+function update_task(task) {
+  return false;
+}
+/* exported functions (I KNOW THIS IS SHITTY) */
 router.test_fun_get_tasks = get_tasks;
+router.test_fun_create_task = create_task;
+router.test_fun_delete_task = delete_task;
+router.test_fun_update_task = update_task;
 router.test_fun_get_task_by_id =get_task_by_id;
 module.exports = router;
