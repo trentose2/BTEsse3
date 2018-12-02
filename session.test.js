@@ -1,9 +1,3 @@
-/*const put_session = require('../resources/session.js').put_session;
-const get_session_by_id = require('../resources/session.js').get_session_by_id;
-const get_sessions = require('../resources/session.js').get_sessions;
-const delete_session = require('../resources/session.js').delete_session;
-const create_session = require('../resources/session.js').create_session;
-*/
 const put_session = require('./session.js').put_session;
 const get_session_by_id = require('./session.js').get_session_by_id;
 const get_sessions = require('./session.js').get_sessions;
@@ -49,7 +43,7 @@ test('test if post accepts only positive integer value of idSession', () => {
     expect(create_session(-45, {nameExam: 'prova5', idExam:4})).toBe(400);
 });
 test('test that if exam is empty, post send error', () => {
-    expect(delete_session(56, '')).toBe(400);
+    expect(create_session(56, '')).toBe(400);
 });
 test('test that if you want to create a new session with an idSession that already exist, post send error', () => {
     expect(create_session(23, {nameExam: 'prova5', idExam: 4})).toBe(404);
@@ -59,7 +53,7 @@ test('test if a session is created correctly for sure', () => {
     expect(put_session(67, {nameExam:'prova7', idExam:8})).toBe(200);
 });
 test('test if a session is created correctly', () => {
-    expect(create_session(67, {nameExam:'prova5', idExam:4})).toBe(200);
+    expect(create_session(67, {nameExam:'prova5', idExam:4})).toEqual(200);
 });
 
 //PUT tests (to upload a session)
