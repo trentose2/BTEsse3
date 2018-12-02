@@ -45,7 +45,7 @@ test('test if a session is created correctly for sure', () => {
     expect(put_session(77, {nameExam:'prova7', idExam:8})).toBe(200);
 });
 test('test if a session is created correctly', () => {
-    expect(create_session(67, {nameExam:'prova5', idExam:4})).toEqual(200);
+    expect(create_session(67, {nameExam:'prova5', idExam:4})).toBe(200);
 });
 
 //PUT tests (to upload a session)
@@ -81,5 +81,7 @@ test('test if the array of all the session is empty, then GET failed (after dele
     delete_session(23);
     delete_session(28);
     delete_session(32);
+    delete_session(67);
+    delete_session(77);
     expect(get_sessions()).toBe(404);
 });
