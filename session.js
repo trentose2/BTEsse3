@@ -25,6 +25,7 @@ router.post('/sessionExams/post', (req, res) => {
 		var length = session_offered.length;
 		const new_session = {idSession:req.body.idSession, exams:req.body.exams};
 		var w = true;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == req.params.idSession) {
 				w = false;
@@ -45,6 +46,7 @@ router.delete('/sessionExams/del/:idSession', (req, res) => {
 	} else {
 		var y = true;
 		var length = session_offered.length;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == req.params.idSession) {
 				y = false;
@@ -73,6 +75,7 @@ router.get('/sessionExams/:idSession', (req, res) => {
 	} else {
 		var f = true;
 		var length = session_offered.length;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == req.params.idSession) {
 				f = false;
@@ -93,6 +96,7 @@ router.put('/sessionExams', (req, res) => {
 	} else {
 		var g = true;
 		var length = session_offered.length;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == req.params.idSession) {
 				g = false;
@@ -114,6 +118,7 @@ function create_session(idSession, exams) {
 	} else {
 		var a = true;
 		var length = session_offered.length;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == idSession) {
 				a = false;
@@ -135,6 +140,7 @@ function delete_session(idSession) {
 	} else {
 		var b = true;
 		var length = session_offered.length;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == idSession) {
 				b = false;
@@ -165,6 +171,7 @@ function get_session_by_id(idSession) {
 	} else {
 		var c = true;
 		var length = session_offered.length;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == idSession) {
 				c = false;
@@ -185,6 +192,7 @@ function put_session(idSession, exams) {
 	} else {
 		var d = true;
 		var length = session_offered.length;
+		let i=0;
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == idSession) {
 				d = false;
