@@ -49,8 +49,8 @@ test('test that if you want to create a new session with an idSession that alrea
     expect(create_session(23, {nameExam: 'prova5', idExam: 4})).toBe(404);
 });
 test('test if a session is created correctly for sure', () => {
-    create_session(67, {nameExam:'prova5', idExam:4});
-    expect(put_session(67, {nameExam:'prova7', idExam:8})).toBe(200);
+    create_session(77, {nameExam:'prova9', idExam:6});
+    expect(put_session(77, {nameExam:'prova7', idExam:8})).toBe(200);
 });
 test('test if a session is created correctly', () => {
     expect(create_session(67, {nameExam:'prova5', idExam:4})).toEqual(200);
