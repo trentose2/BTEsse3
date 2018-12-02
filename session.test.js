@@ -14,8 +14,8 @@ test('test if session number 23 is deleted successfully', () => {
     expect(delete_session(23)).toBe(200);
 });
 test('test if session number 23 is deleted for sure', () => {
-    delete_session(23);
-    expect(put_session(23, {nameExam:'prova5', idExam:4})).toBe(404);
+    delete_session(28);
+    expect(put_session(28, {nameExam:'prova7', idExam:99})).toBe(404);
 });
 test('test if delete accepts only positive integer value of idSession', () => {
     expect(delete_session('abcd')).toBe(400);
