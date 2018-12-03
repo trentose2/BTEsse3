@@ -1,7 +1,8 @@
-var fs = require('fs');
+const read_data = require('../database/environment').read;
+const write_data = require('../database/environment').write;
 const express = require('express');
-const FAKE_DB_PATH = './database/users.json'
 var router = express.Router();
+
 // var bodyParser = require('body-parser');
 
 // router.use(bodyParser.json());
@@ -21,9 +22,9 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
 	var user = get_user_byId(req.params.id);
 	
-	if ((user === undefined) || (user === null)) {
+	if ((user === undefined) || (user === null) || (!user)) {
 		res.statusCode = 404;
-		return res.json({message:'Error, Not Found!'});
+		return res.json({message:'Error, User Not Found!'});
 	}
 	else {
 		res.statusCode = 200;
@@ -31,24 +32,20 @@ router.get('/:id', function(req, res) {
 	}
 });
 
+
+// sistema
 router.delete('/:id', function(req, res) {
 	// var user = get_user_byId(req.params.id);
 	return null
 	
 });
 
-function read_data() {
-	return JSON.parse(fs.readFileSync(FAKE_DB_PATH, 'utf8'));
-}
-
-function write_data(users) {
-	fs.writeFileSync(FAKE_DB_PATH, JSON.stringify(users));
-}
-
+// casi di test?
 function get_users() {
 	return read_data();
 }
 
+// sistema
 function create_user() {
 	var users = read_data();
 	var new_id = -1;
@@ -64,10 +61,11 @@ function create_user() {
 	}
 }
 
+// chiedi, controllo con Number.isInteger non va se id è preso da url
 function get_user_byId(id) {
 	var users = read_data();
 	
-	console.log('is id integer? ', Number.isInteger(id));
+	// console.log('is id integer? ', Number.isInteger(id));
 	
 	// (!Number.isInteger(id)) || 
 	if ((id < 0) || (isNaN(id))) {
@@ -84,6 +82,7 @@ function get_user_byId(id) {
 	return false;
 }
 
+// ci sarà lo stesso errore di get_user_byId
 function delete_user_byId(id) {
 	var users = read_data();
 	
@@ -91,17 +90,15 @@ function delete_user_byId(id) {
 		return null;
 	}
 	
-	var result = false;
-	var l = users.length;
-	
 	for (var i in users) {
 		if (users[i].id == id) {
 			users.splice(i, 1);
-			result = true;
+			write_data(users);
+			return true;
 		}
 	}
 	
-	return result;
+	return false;
 }
 
 router.test_get_user_byId = get_user_byId;

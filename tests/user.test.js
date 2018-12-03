@@ -1,4 +1,7 @@
 const user = require('../resources/user');
+const reset = require('../database/environment').reset;
+
+reset();
 
 // Testing get_user_byId //
 
@@ -17,7 +20,7 @@ test('Id is not a number - get', () => {
 
 	// Test con id validi:
 test('Valid id - get', () => {
-	expect(user.test_get_user_byId(11)).toBeDefined;
+	expect(user.test_get_user_byId(1)).toBeDefined;
 });
 
 test('Not such a user - get', () => {
@@ -42,9 +45,10 @@ test('Id is not a number - delete', () => {
 
 // Test con id validi:
 test('Valid id - delete', () => {
-	expect(user.test_delete_user_byId(11)).toBe(true);
+	expect(user.test_delete_user_byId(2)).toBe(true);
 });
 
 test('Not such a user - delete', () => {
 	expect(user.test_delete_user_byId(0)).toBe(false);
 });
+
