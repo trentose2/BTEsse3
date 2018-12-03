@@ -607,6 +607,66 @@ paths:
           description: "OK"
         400:
           description: "Submission not well formed"
+  /submissions/{id}:
+    get:
+      tags:
+      - "submission"
+      summary: "Return the submission by id"
+      description: ""
+      operationId: "getSubmissionById"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        description: "Return the submission by id"
+        type: "integer"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Submission"
+        404:
+          description: "Submission not found"
+    put:
+        tags:
+        - "submission"
+        summary: "Update a submission"
+        description: ""
+        operationId: "updateSubmissionExam"
+        parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "Update the submission by id"
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "Create exam session object"
+          required: true
+          schema:
+            $ref: "#/definitions/Submission"
+        responses:
+          200:
+            description: "OK"
+          500:
+            description: "Error while updating exam session"
+    delete:
+      tags:
+      - "submission"
+      summary: "Delete a submission"
+      description: ""
+      operationId: "deleteSubmission"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "OK"
+        404:
+          description: "Exam session not found"
 definitions:
   User:
     type: "object"

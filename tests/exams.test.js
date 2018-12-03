@@ -1,9 +1,15 @@
-const examId = require('../resources/exams').examId;
-const userId = require('../resources/exams').userId;
-const examPut = require('../resources/exams').examPut;
-const examUpdate = require('../resources/exams').examUpdate;
-const examDelete = require('../resources/exams').examDelete;
-const submit = require('../resources/exams').submit;
+const exam = require('../JS/examFunctions').getExams;
+const examId = require('../JS/examFunctions').getExamsById;
+const userId = require('../JS/examFunctions').getExamsByUserId;
+const examPut = require('../JS/examFunctions').putExam;
+const examUpdate = require('../JS/examFunctions').updateExam;
+const examDelete = require('../JS/examFunctions').deleteExam;
+const empty = require('../JS/examFunctions').isEmpty;
+
+test('return exams correctly', () => {
+    expect(exam()).toBeDefined();
+    expect(exam()).not.toBeNull();
+})
 
 test('idExam correct', () => {
     expect(examId(1)).toBeDefined();
@@ -47,6 +53,7 @@ test('delete the exam not correctly', () => {
     expect(examDelete(-1)).toBeNull();
 })
 
-test('submit the exam', () => {
-    expect(submit()).toBeTruthy();
+test('check if a object is empty', () => {
+    expect(empty({})).toBeTruthy();
+    expect(empty({ "a": "a" })).toBeFalsy;
 })
