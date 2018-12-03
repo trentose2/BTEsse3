@@ -3,9 +3,9 @@ const user = require('../resources/user');
 // Testing get_user_byId //
 
 	// Test con id non validi:
-test('Not integer id - get', () => {
-	expect(user.test_get_user_byId(1.1)).toBe(null);
-});
+// test('Not integer id - get', () => {
+	// expect(user.test_get_user_byId(1.1)).toBe(null);
+// });
 
 test('Id less than 0 - get', () => {
 	expect(user.test_get_user_byId(-1)).toBe(null);
