@@ -32,16 +32,16 @@ test('idUser incorrect', () => {
 })
 
 test('put the exam', () => {
-    expect(examPut()).toBeTruthy();
+    expect(examPut("{\"idExam\": 4,\"idUser\": 2,\"nameExam\": \"new\",\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}")).toBeTruthy();
 })
 
 test('update the exam correctly', () => {
-    expect(examUpdate(1)).toBeTruthy();
+    expect(examUpdate(1, "{\"idExam\": 4,\"idUser\": 2,\"nameExam\": \"new\",\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}")).toBeTruthy();
 })
 
 test('update the exam not correctly', () => {
-    expect(examUpdate("a")).toBeNull();
-    expect(examUpdate(-1)).toBeNull();
+    expect(examUpdate("a", "{\"idExam\": 4,\"idUser\": 2,\"nameExam\": \"new\",\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}")).toBeNull();
+    expect(examUpdate(-1, "{\"idExam\": 4,\"idUser\": 2,\"nameExam\": \"new\",\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}")).toBeNull();
 })
 
 test('delete the exam correctly', () => {

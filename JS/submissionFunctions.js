@@ -2,33 +2,9 @@ var fs = require("fs");
 
 var myDataSubmission = JSON.parse(fs.readFileSync(__dirname + "/" + "../database/submissions.json", 'utf8'));
 
-var submission4 = {
-    "id": 4,
-    "idUser": 2,
-    "exam": {
-        "nameExam": "es4",
-        "idExam": 2,
-        "idUser": 2,
-        "valutation": 1,
-        "tasks": [
-            {
-                "id": 1,
-                "type": "open",
-                "request": "domanda",
-                "response": "risposta",
-                "reviews": [
-                    {
-                        "idReview": 1,
-                        "idUser": 1,
-                        "idTask": 1,
-                        "message": "es4",
-                        "mark": 1
-                    }
-                ]
-            }
-        ]
-    }
-};
+/* ESEMPIO DI SUBMISSIONS DA PASSARE COME BODY NEL CURL PER CREARE O AGGIORNARE
+{\"id\": 4,\"idUser\": 2,\"exam\": {\"nameExam\": \"new\",\"idExam\": 4,\"idUser\": 2,\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}}
+*/
 
 function isEmpty(x) {
     for (const key in x) {
@@ -72,12 +48,12 @@ function getExamsSubmissionById(id) {
         }
 }
 
-function submission() {
-    myDataSubmission.push(submission4);
+function submission(sub) {
+    myDataSubmission.push(JSON.parse(sub));
     return true;
 }
 
-function updateSubmissions(id) {
+function updateSubmissions(id, sub) {
     if (isNaN(id)) {
         return null;
     }
@@ -88,7 +64,7 @@ function updateSubmissions(id) {
         else {
             for (var x in myDataSubmission) {
                 if (myDataSubmission[x].id == id) {
-                    myDataSubmission[x] = submission4;
+                    myDataSubmission[x] = JSON.parse(sub);
                 }
             }
             return (true);

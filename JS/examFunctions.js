@@ -2,45 +2,9 @@ var fs = require("fs");
 
 var myData = JSON.parse(fs.readFileSync(__dirname + "/" + "../database/exams.json", 'utf8'));
 
-var exam4 = {
-    "idExam": 4,
-    "idUser": 1,
-    "nameExam": "esempio4",
-    "valutation": 1,
-    "tasks": [{
-        "id": 1,
-        "type": "open",
-        "request": "domanda",
-        "response": "risposta",
-        "reviews": [{
-            "idReview": 1,
-            "idUser": 1,
-            "idTask": 1,
-            "message": "es4",
-            "mark": 1
-        }]
-    }]
-};
-
-var exam2 = {
-    "idExam": 2,
-    "idUser": 1,
-    "nameExam": "esempio2new",
-    "valutation": 1,
-    "tasks": [{
-        "id": 1,
-        "type": "open",
-        "request": "domanda",
-        "response": "risposta",
-        "reviews": [{
-            "idReview": 1,
-            "idUser": 2,
-            "idTask": 1,
-            "message": "es2new",
-            "mark": 1
-        }]
-    }]
-};
+/* ESEMPIO DI EXAM DA PASSARE COME BODY NEL CURL PER CREARE O AGGIORNARE
+{\"idExam\": 4,\"idUser\": 2,\"nameExam\": \"new\",\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}
+*/
 
 function isEmpty(x) {
     for (const key in x) {
@@ -108,12 +72,12 @@ function getExamsByUserId(idUser) {
         }
 }
 
-function putExam() {
-    myData.push(exam4);
+function putExam(exam) {
+    myData.push(JSON.parse(exam));
     return true;
 }
 
-function updateExam(id) {
+function updateExam(id, exam) {
     if (isNaN(id)) {
         return null;
     }
@@ -124,7 +88,7 @@ function updateExam(id) {
         else {
             for (var x in myData) {
                 if (myData[x].idExam == id) {
-                    myData[x] = exam2;
+                    myData[x] = JSON.parse(exam);
                 }
             }
             return (true);
