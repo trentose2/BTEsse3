@@ -20,16 +20,16 @@ test('idSubmission incorrect', () => {
 })
 
 test('submit the exam', () => {
-    expect(submit()).toBeTruthy();
+    expect(submit("{\"id\": 4,\"idUser\": 2,\"exam\": {\"nameExam\": \"new\",\"idExam\": 4,\"idUser\": 2,\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}}")).toBeTruthy();
 })
 
 test('update the submission correctly', () => {
-    expect(submissionUpdate(1)).toBeTruthy();
+    expect(submissionUpdate(1, "{\"id\": 4,\"idUser\": 2,\"exam\": {\"nameExam\": \"new\",\"idExam\": 4,\"idUser\": 2,\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}}")).toBeTruthy();
 })
 
 test('update the submission not correctly', () => {
-    expect(submissionUpdate("a")).toBeNull();
-    expect(submissionUpdate(-1)).toBeNull();
+    expect(submissionUpdate("a", "{\"id\": 4,\"idUser\": 2,\"exam\": {\"nameExam\": \"new\",\"idExam\": 4,\"idUser\": 2,\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}}")).toBeNull();
+    expect(submissionUpdate(-1, "{\"id\": 4,\"idUser\": 2,\"exam\": {\"nameExam\": \"new\",\"idExam\": 4,\"idUser\": 2,\"valutation\": 5,\"tasks\": [{\"id\": 1,\"type\": \"open\",\"request\": \"domanda\",\"response\": \"risposta\",\"reviews\": [{\"idReview\": 1,\"idUser\": 1,\"idTask\": 1,\"message\": \"es4\",\"mark\": 1}]}]}}")).toBeNull();
 })
 
 test('delete the submission correctly', () => {
