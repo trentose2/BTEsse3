@@ -58,11 +58,10 @@ router.delete('/:id', function(req, res) {
 });
 
 
-// casi di test?
 function get_users() {
 	return read_data();
 }
-// casi di test
+
 function create_user(user) {
 	var data = read_data();
 	var retval = true;
@@ -81,10 +80,12 @@ function create_user(user) {
 	return retval;
 }
 
+// numero da 
 function get_user_byId(id) {
 	var users = read_data();
 	
-	if ((!Number.isInteger(id)) || (id < 0) || (isNaN(id))) {
+	// (!Number.isInteger(id)) || 
+	if ((id < 0) || (isNaN(id))) {
 		return null;
 	}
 	
@@ -95,11 +96,12 @@ function get_user_byId(id) {
 	}
 	return false;
 }
-
+// stesso errore di get
 function delete_user_byId(id) {
 	var users = read_data();
 	
-	if ((!Number.isInteger(id)) || (id < 0) || (isNaN(id))) {
+	// (!Number.isInteger(id)) || 
+	if ((id < 0) || (isNaN(id))) {
 		return null;
 	}
 	
@@ -118,6 +120,8 @@ function exist(user) {
 		user.email !== undefined && user.password !== undefined;
 }
 
+router.test_get_users = get_users;
+router.test_create_user = create_user;
 router.test_get_user_byId = get_user_byId;
 router.test_delete_user_byId = delete_user_byId;
 
