@@ -32,13 +32,20 @@ router.get('/:id', function(req, res) {
 	}
 });
 
-
-// sistema
 router.delete('/:id', function(req, res) {
-	// var user = get_user_byId(req.params.id);
-	return null
+	var user = delete_user_byId(req.params.id);
 	
+	if ((user === undefined) || (user === null) || (!user)) {
+		res.statusCode = 404;
+		return res.json({ message: 'Error, user not found!' });
+	}
+	if (user) {
+		res.statusCode = 200;
+		return res.json({ message: 'User successfully deleted' });
+	}
+	return null;
 });
+
 
 // casi di test?
 function get_users() {
@@ -86,7 +93,8 @@ function get_user_byId(id) {
 function delete_user_byId(id) {
 	var users = read_data();
 	
-	if ((!Number.isInteger(id)) || (id < 0) || (isNaN(id))) {
+	// (!Number.isInteger(id)) || 
+	if ((id < 0) || (isNaN(id))) {
 		return null;
 	}
 	
@@ -97,7 +105,6 @@ function delete_user_byId(id) {
 			return true;
 		}
 	}
-	
 	return false;
 }
 
