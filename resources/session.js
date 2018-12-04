@@ -14,11 +14,8 @@ var session_offered = [{ idSession: 23, exams: [{ nameExam: 'prova1', idExam: 74
 { idSession: 28, exams: [{ nameExam: 'prova2', idExam: 74 }, { nameExam: 'prova3', idExam: 91 }] },
 { idSession: 32, exams: [{ nameExam: 'prova2', idExam: 74 }, { nameExam: 'prova3', idExam: 91 }] }];
 
-
-
-
 //POST, sessionExam
-router.post('/sessionExams/post', (req, res) => {
+router.post('/sessionExams', (req, res) => {
 	if (isNaN(req.params.idSession) || req.params.idSession < 0 || req.params.exams == "") {
 		res.sendStatus(400);
 	} else {
@@ -29,6 +26,7 @@ router.post('/sessionExams/post', (req, res) => {
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == req.params.idSession) {
 				w = false;
+				break;
 			}
 		}
 		if (w == true) {
@@ -50,6 +48,7 @@ router.delete('/sessionExams/del/:idSession', (req, res) => {
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == req.params.idSession) {
 				y = false;
+				break;
 			}
 		}
 		if (y == false) {
@@ -79,6 +78,7 @@ router.get('/sessionExams/:idSession', (req, res) => {
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == req.params.idSession) {
 				f = false;
+				break;
 			}
 		}
 		if (f == false) {
@@ -98,8 +98,9 @@ router.put('/sessionExams', (req, res) => {
 		var length = session_offered.length;
 		let i=0;
 		for(let i = 0; i < length; i++) {
-			if (session_offered[i].idSession == req.params.idSession) {
+			if (session_offered[i].idSession == parseInt(req.params.idSession)) {
 				g = false;
+				break;
 			}
 		}
 		if (g == false) {
@@ -119,9 +120,10 @@ function create_session(idSession, exams) {
 		var a = true;
 		var length = session_offered.length;
 		let i=0;
-		for(let i = 0; i < length; i++) {
+		for(i = 0; i < length; i++) {
 			if (session_offered[i].idSession == idSession) {
 				a = false;
+				break;
 			}
 		}
 		if (a == true) {
@@ -141,9 +143,10 @@ function delete_session(idSession) {
 		var b = true;
 		var length = session_offered.length;
 		let i=0;
-		for(let i = 0; i < length; i++) {
+		for(i = 0; i < length; i++) {
 			if (session_offered[i].idSession == idSession) {
 				b = false;
+				break;
 			}
 		}
 		if (b == false) {
@@ -175,6 +178,7 @@ function get_session_by_id(idSession) {
 		for(let i = 0; i < length; i++) {
 			if (session_offered[i].idSession == idSession) {
 				c = false;
+				break;
 			}
 		}
 		if (c == false) {
@@ -193,13 +197,13 @@ function put_session(idSession, exams) {
 		var d = true;
 		var length = session_offered.length;
 		let i=0;
-		for(let i = 0; i < length; i++) {
-			if (session_offered[i].idSession == idSession) {
+		for(i = 0; i < session_offered.length; i++) {
+			if (session_offered[i].idSession === idSession) {
 				d = false;
 				break;
 			}
 		}
-		if (d == false) {
+		if (d === false) {
 			session_offered[i] = {idSession:idSession, exams:exams};
 			return 200;
 		} else {
@@ -207,7 +211,6 @@ function put_session(idSession, exams) {
 		}
 	}
 }
-
 router.put_session = put_session;
 router.get_session_by_id = get_session_by_id;
 router.get_sessions = get_sessions;
