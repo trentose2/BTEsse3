@@ -3,11 +3,7 @@ const write_data = require('../database/environment').write;
 const express = require('express');
 var router = express.Router();
 
-// var bodyParser = require('body-parser');
-
-// router.use(bodyParser.json());
-// router.use(bodyParser.urlencoded({ extended: true }));
-
+// 404 not found swagger
 router.get('/', function(req, res) {
 	var users = get_users();
 	
@@ -19,12 +15,25 @@ router.get('/', function(req, res) {
 	return res.json(users);
 });
 
+router.post('/', function(req, res) {
+	var op = create_user(req.body);
+	
+	if (!op) {
+		res.statusCode = 400;
+		return res.json({ message: "Error, creation of user went wrong." });
+	}
+	else {
+		res.statusCode = 200;
+		return res.json({ message: "User successfully created." });
+	}	
+});
+
 router.get('/:id', function(req, res) {
 	var user = get_user_byId(req.params.id);
 	
 	if ((user === undefined) || (user === null) || (!user)) {
 		res.statusCode = 404;
-		return res.json({message:'Error, User Not Found!'});
+		return res.json({ message: "Error, User Not Found!" });
 	}
 	else {
 		res.statusCode = 200;
@@ -32,18 +41,20 @@ router.get('/:id', function(req, res) {
 	}
 });
 
+// sistema unknown
 router.delete('/:id', function(req, res) {
-	var user = delete_user_byId(req.params.id);
+	var op = delete_user_byId(req.params.id);
 	
-	if ((user === undefined) || (user === null) || (!user)) {
+	if ((op === undefined) || (op === null) || (!op)) {
 		res.statusCode = 404;
-		return res.json({ message: 'Error, user not found!' });
+		return res.json({ message: "Error, user not found." });
 	}
-	if (user) {
+	if (op) {
 		res.statusCode = 200;
-		return res.json({ message: 'User successfully deleted' });
+		return res.json({ message: "User successfully deleted." });
 	}
-	return null;
+	
+	return res.json({ message: "Unknown error." });
 });
 
 
@@ -51,50 +62,44 @@ router.delete('/:id', function(req, res) {
 function get_users() {
 	return read_data();
 }
-
-// sistema
-function create_user() {
-	var users = read_data();
-	var new_id = -1;
+// casi di test
+function create_user(user) {
+	var data = read_data();
+	var retval = true;
 	
-	for (var i in users) {
-		if (users[i].id == id) {
-			// console.log('\t', users[i]);
-			return users[i];
-		}
+	if (exist(user)) {
+		user.id = data[data.length - 1].id + 1;
+		data.push(user);
+		write_data(data);
 	}
-	while (new_id == 0) {
-		i
+	else {
+		retval = false;
 	}
+	
+	console.log(data);
+	
+	return retval;
 }
 
-// chiedi, controllo con Number.isInteger non va se id è preso da url
 function get_user_byId(id) {
 	var users = read_data();
 	
-	// console.log('is id integer? ', Number.isInteger(id));
-	
-	// (!Number.isInteger(id)) || 
-	if ((id < 0) || (isNaN(id))) {
-		// console.log('not integer, apparently');
+	if ((!Number.isInteger(id)) || (id < 0) || (isNaN(id))) {
 		return null;
 	}
 	
 	for (var i in users) {
 		if (users[i].id == id) {
-			// console.log('\t', users[i]);
 			return users[i];
 		}
 	}
 	return false;
 }
 
-// ci sarà lo stesso errore di get_user_byId
 function delete_user_byId(id) {
 	var users = read_data();
 	
-	// (!Number.isInteger(id)) || 
-	if ((id < 0) || (isNaN(id))) {
+	if ((!Number.isInteger(id)) || (id < 0) || (isNaN(id))) {
 		return null;
 	}
 	
@@ -106,6 +111,11 @@ function delete_user_byId(id) {
 		}
 	}
 	return false;
+}
+
+function exist(user) {
+	return user.id !== undefined && user.username !== undefined &&
+		user.email !== undefined && user.password !== undefined;
 }
 
 router.test_get_user_byId = get_user_byId;
