@@ -90,7 +90,7 @@ function create_user(user) {
 		retval = false;
 	}
 	
-	console.log(data);
+	// console.log(data);
 	
 	return retval;
 }
@@ -109,7 +109,7 @@ function update_user(user) {
 		}
 	}
 	
-	console.log(data);
+	// console.log(data);
 	
 	return retval;
 }

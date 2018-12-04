@@ -102,6 +102,79 @@ test('Undefined id in user creation, not valid - post /', () => {
 });
 
 
+// Testing update_user
+
+test('Update of user, valid - put /', () => {
+	var users_before = user.test_get_users();
+	var users_after = null;
+	var right = false;
+	
+	var us =
+	{
+		id: 1,
+		username: "username_test",
+		email: "email_test",
+		password: "password_test"
+	}
+	
+	expect(user.test_update_user(us)).toBe(true);
+	
+	users_after = user.test_get_users();
+	
+	expect(users_after.length).toEqual(users_before.length);
+	
+	
+	for (var i in users_after) {
+		if ((us.id === users_after[i].id) &&
+			(us.username === users_after[i].username) &&
+			(us.email === users_after[i].email) &&
+			(us.password === users_after[i].password)) {
+				
+				right = true;
+		}
+	}
+	
+	expect(right).toBe(true);
+});
+
+test('Undefined username in user update - put /', () => {
+	var users_before = user.test_get_users();
+	var users_after = null;
+	
+	var us =
+	{
+		id: 1,
+		email: "email_test",
+		password: "password_test"
+	}
+	
+	expect(user.test_update_user(us)).toBe(false);
+	
+	users_after = user.test_get_users();
+	
+	expect(users_after.length).toEqual(users_before.length);
+});
+
+test('User to update not found - put /', () => {
+	var users_before = user.test_get_users();
+	var users_after = null;
+	
+	var us =
+	{
+		id: users_before.length + 1,
+		username: "username_test",
+		email: "email_test",
+		password: "password_test"
+	}
+	
+	expect(user.test_update_user(us)).toBe(false);
+	
+	users_after = user.test_get_users();
+	
+	expect(users_after.length).toEqual(users_before.length);
+});
+
+
 
 
 
