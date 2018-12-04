@@ -28,6 +28,19 @@ router.post('/', function(req, res) {
 	}	
 });
 
+router.put('/', function(req, res) {
+	var op = update_user(req.body);
+	
+	if (!op) {
+		res.statusCode = 404;
+		return res.json({ message: "Error, user to update not found." });
+	}
+	else {
+		res.statusCode = 200;
+		return res.json({ message: "User successfully updated." });
+	}
+});
+
 router.get('/:id', function(req, res) {
 	var user = get_user_byId(req.params.id);
 	
@@ -58,6 +71,8 @@ router.delete('/:id', function(req, res) {
 });
 
 
+
+
 function get_users() {
 	return read_data();
 }
@@ -73,6 +88,25 @@ function create_user(user) {
 	}
 	else {
 		retval = false;
+	}
+	
+	console.log(data);
+	
+	return retval;
+}
+
+function update_user(user) {
+	var data = read_data();
+	var retval = false;
+	
+	if (exist(user)) {
+		for (var i in data) {
+			if (user.id === data[i].id) {
+				data.splice(i, 1, user);
+				write_data(data);
+				retval = true;
+			}
+		}
 	}
 	
 	console.log(data);
@@ -96,7 +130,7 @@ function get_user_byId(id) {
 	}
 	return false;
 }
-// stesso errore di get
+// stesso errore di get, e fixa test
 function delete_user_byId(id) {
 	var users = read_data();
 	
@@ -120,8 +154,10 @@ function exist(user) {
 		user.email !== undefined && user.password !== undefined;
 }
 
+
 router.test_get_users = get_users;
 router.test_create_user = create_user;
+router.test_update_user = update_user;
 router.test_get_user_byId = get_user_byId;
 router.test_delete_user_byId = delete_user_byId;
 
