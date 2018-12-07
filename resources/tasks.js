@@ -134,7 +134,7 @@ function update_task(task) {
 /* exported functions (I KNOW THIS IS SHITTY) */
 router.test_fun_get_tasks = get_tasks;
 router.test_fun_create_task = create_task;
-router.test_fun_delete_task = delete_task;
+router.test_fun_remove_task = delete_task;
 router.test_fun_update_task = update_task;
 router.test_fun_get_task_by_id =get_task_by_id;
 module.exports = router;
