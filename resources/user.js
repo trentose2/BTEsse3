@@ -3,12 +3,14 @@ const write_data = require('../database/environment').write;
 const express = require('express');
 var router = express.Router();
 
-// 404 not found swagger
+// Routes
+
 router.get('/', function(req, res) {
 	var users = get_users();
 	
 	if ((users === undefined) || (users === null)) {
-		users = [];
+		res.statusCode = 400;
+		return res.json({ message: "Something went wrong retrieving the users" });
 	}
 	
 	res.statusCode = 200;
@@ -54,7 +56,6 @@ router.get('/:id', function(req, res) {
 	}
 });
 
-// sistema unknown
 router.delete('/:id', function(req, res) {
 	var op = delete_user_byId(req.params.id);
 	
@@ -70,8 +71,7 @@ router.delete('/:id', function(req, res) {
 	return res.json({ message: "Unknown error." });
 });
 
-
-
+// Functions
 
 function get_users() {
 	return read_data();
@@ -90,8 +90,6 @@ function create_user(user) {
 		retval = false;
 	}
 	
-	// console.log(data);
-	
 	return retval;
 }
 
@@ -109,16 +107,12 @@ function update_user(user) {
 		}
 	}
 	
-	// console.log(data);
-	
 	return retval;
 }
 
-// numero da 
 function get_user_byId(id) {
 	var users = read_data();
 	
-	// (!Number.isInteger(id)) || 
 	if ((id < 0) || (isNaN(id))) {
 		return null;
 	}
@@ -128,13 +122,13 @@ function get_user_byId(id) {
 			return users[i];
 		}
 	}
+
 	return false;
 }
-// stesso errore di get, e fixa test
+
 function delete_user_byId(id) {
 	var users = read_data();
 	
-	// (!Number.isInteger(id)) || 
 	if ((id < 0) || (isNaN(id))) {
 		return null;
 	}
@@ -146,8 +140,10 @@ function delete_user_byId(id) {
 			return true;
 		}
 	}
+
 	return false;
 }
+
 
 function exist(user) {
 	return user.id !== undefined && user.username !== undefined &&

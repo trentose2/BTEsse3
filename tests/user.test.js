@@ -6,9 +6,6 @@ reset();
 // Testing get_user_byId //
 
 	// Test con id non validi:
-// test('Not integer id - get /:id', () => {
-	// expect(user.test_get_user_byId(1.1)).toBe(null);
-// });
 
 test('Id less than 0 - get /:id', () => {
 	expect(user.test_get_user_byId(-1)).toBe(null);
@@ -31,9 +28,6 @@ test('Not such a user - get /:id', () => {
 // Testing delete_user_byId //
 	
 	// Test con id non validi:
-// test('Not integer id - delete /:id', () => {
-	// expect(user.test_delete_user_byId(1.1)).toBe(null);
-// });
 
 test('Id less than 0 - delete /:id', () => {
 	expect(user.test_delete_user_byId(-1)).toBe(null);
@@ -61,7 +55,7 @@ test('Get all users, valid - get /', () => {
 });
 
 
-// Testing create_user
+// Testing create_user //
 
 test('Creation of user, valid - post /', () => {
 	var users_before = user.test_get_users();
@@ -102,7 +96,7 @@ test('Undefined id in user creation, not valid - post /', () => {
 });
 
 
-// Testing update_user
+// Testing update_user //
 
 test('Update of user, valid - put /', () => {
 	var users_before = user.test_get_users();

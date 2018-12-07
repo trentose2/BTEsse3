@@ -74,9 +74,9 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/User"
-        404:
-          description: "User not found"
-    put:
+        400:
+          description: "Something went wrong"
+    post:
       tags:
       - "user"
       summary: "Create user"
@@ -94,7 +94,7 @@ paths:
             description: "OK"
         400:
           description: "Error while creating user"
-    post:
+    put:
       tags:
       - "user"
       summary: "Updated user"
@@ -163,7 +163,7 @@ paths:
             $ref: "#/definitions/UserGroup"
         404:
           description: "User group not found"
-    post:
+    put:
       tags:
       - "userGroup"
       summary: "Update user group"
@@ -181,7 +181,7 @@ paths:
           description: "OK"
         404:
           description: "User group not found"
-    put:
+    post:
         tags:
         - "userGroup"
         summary: "Create user group"
