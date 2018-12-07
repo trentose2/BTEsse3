@@ -3,6 +3,7 @@ const submissionId = require('../JS/submissionFunctions').getExamsSubmissionById
 const submit = require('../JS/submissionFunctions').submission;
 const submissionUpdate = require('../JS/submissionFunctions').updateSubmissions;
 const submissionDelete = require('../JS/submissionFunctions').deleteSubmission;
+const fetch = require('node-fetch');
 
 test('return submissions correctly', () => {
     expect(submissions()).toBeDefined();
@@ -40,3 +41,25 @@ test('delete the submission not correctly', () => {
     expect(submissionDelete("a")).toBeNull();
     expect(submissionDelete(-1)).toBeNull();
 })
+
+async function getAllTheSubmissions() {
+    var res = await fetch('https://btesse3.herokuapp.com/submissions');
+    return (await res.json());
+}
+
+async function getTheSubmissionById(id) {
+    var res = await fetch('https://btesse3.herokuapp.com/submissions/' + id);
+    return (await res.json());
+}
+
+test('check get all the submissions', async () => {
+    var result = await getAllTheSubmissions();
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+});
+
+test('check get the submission by id', async () => {
+    var result = await getTheSubmissionById(1);
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+});

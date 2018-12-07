@@ -5,6 +5,7 @@ const examPut = require('../JS/examFunctions').putExam;
 const examUpdate = require('../JS/examFunctions').updateExam;
 const examDelete = require('../JS/examFunctions').deleteExam;
 const empty = require('../JS/examFunctions').isEmpty;
+const fetch = require('node-fetch');
 
 test('return exams correctly', () => {
     expect(exam()).toBeDefined();
@@ -57,3 +58,36 @@ test('check if a object is empty', () => {
     expect(empty({})).toBeTruthy();
     expect(empty({ "a": "a" })).toBeFalsy;
 })
+
+async function getAllTheExams() {
+    var res = await fetch('https://btesse3.herokuapp.com/exams');
+    return (await res.json());
+}
+
+async function getTheExamById(id) {
+    var res = await fetch('https://btesse3.herokuapp.com/exams/' + id);
+    return (await res.json());
+}
+
+async function getTheExamByUserId(id) {
+    var res = await fetch('https://btesse3.herokuapp.com/exams/idUser/' + id);
+    return (await res.json());
+}
+
+test('check get all the exams', async () => {
+    var result = await getAllTheExams();
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+});
+
+test('check get the exam by id', async () => {
+    var result = await getTheExamById(1);
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+});
+
+test('check get the exam by user id', async () => {
+    var result = await getTheExamByUserId(1);
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+});
