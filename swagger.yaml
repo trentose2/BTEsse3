@@ -74,9 +74,9 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/User"
-        404:
-          description: "User not found"
-    put:
+        400:
+          description: "Something went wrong"
+    post:
       tags:
       - "user"
       summary: "Create user"
@@ -94,7 +94,7 @@ paths:
             description: "OK"
         400:
           description: "Error while creating user"
-    post:
+    put:
       tags:
       - "user"
       summary: "Updated user"
@@ -163,7 +163,7 @@ paths:
             $ref: "#/definitions/UserGroup"
         404:
           description: "User group not found"
-    post:
+    put:
       tags:
       - "userGroup"
       summary: "Update user group"
@@ -181,7 +181,7 @@ paths:
           description: "OK"
         404:
           description: "User group not found"
-    put:
+    post:
         tags:
         - "userGroup"
         summary: "Create user group"
@@ -374,19 +374,13 @@ paths:
           description: "OK"
         400:
           description: "Evaluation of the review failed"
-  /exams/idUsers/{idUser}:
+  /exams:
     get:
       tags:
       - "exam"
-      summary: "Return the exams created by user"
+      summary: "Return all the exams"
       description: ""
       operationId: "getExams"
-      parameters:
-      - name: "idUser"
-        in: "path"
-        required: true
-        description: "Return the exams created by user"
-        type: "integer"
       responses: 
         200:
           description: "OK"
@@ -394,28 +388,7 @@ paths:
             $ref: "#/definitions/Exam"
         404:
           description: "Exam not found"
-  /exams:
     post:
-      tags:
-      - "exam"
-      summary: "Update the exam"
-      description: ""
-      operationId: "updateExam"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Created exam object"
-        required: true
-        schema:
-          $ref: "#/definitions/Exam"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/Exam"
-        400:
-          description: "Update failed"
-    put:
       tags:
       - "exam"
       summary: "Create an exam"
@@ -433,6 +406,26 @@ paths:
           description: "OK"
         400:
           description: "Exam creation failed"
+  /exams/idUsers/{idUser}:
+    get:
+      tags:
+      - "exam"
+      summary: "Return the exams created by user"
+      description: ""
+      operationId: "getExamsbyUserId"
+      parameters:
+      - name: "idUser"
+        in: "path"
+        required: true
+        description: "Return the exams created by user"
+        type: "integer"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Exam"
+        404:
+          description: "Exam not found"
   /exams/{idExam}:
     get:
       tags:
@@ -453,6 +446,31 @@ paths:
             $ref: "#/definitions/Exam"
         404:
           description: "Exam not found"
+    put:
+      tags:
+      - "exam"
+      summary: "Update the exam"
+      description: ""
+      operationId: "updateExam"
+      parameters:
+      - name: "idExam"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Created exam object"
+        required: true
+        schema:
+          $ref: "#/definitions/Exam"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Exam"
+        400:
+          description: "Update failed"
     delete:
       tags:
       - "exam"
@@ -484,7 +502,7 @@ paths:
             $ref: "#/definitions/SessionExam"
         404:
           description: "Exam session not found"
-    post:
+    put:
       tags:
       - "sessionExam"
       summary: "Update exam session"
@@ -502,7 +520,9 @@ paths:
           description: "OK"
         404:
           description: "Exam session not found"
-    put:
+        400:
+            description: "Invalid parameters"
+    post:
         tags:
         - "sessionExam"
         summary: "Create a exam session"
@@ -519,7 +539,9 @@ paths:
           200:
             description: "OK"
           400:
-            description: "Error while creating exam session"
+            description: "Invalid parameters"
+          404:
+            description: "Exam session already exists"
   /sessionExams/{idSession}:
     get:
       tags:
@@ -540,6 +562,8 @@ paths:
             $ref: "#/definitions/SessionExam"
         404:
           description: "Exam session not found"
+        400:
+          description: "Invalid parameters"
     delete:
       tags:
       - "sessionExam"
@@ -557,7 +581,22 @@ paths:
           description: "OK"
         404:
           description: "Exam session not found"
+        400:
+          description: "Invalid parameters"
   /submissions:
+    get:
+      tags:
+      - "submission"
+      summary: "Get the submissions"
+      description: ""
+      operationId: "getSubmittedExam"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Submission"
+        404:
+          description: "Submissions not found"
     post:
       tags:
       - "submission"
@@ -576,6 +615,66 @@ paths:
           description: "OK"
         400:
           description: "Submission not well formed"
+  /submissions/{id}:
+    get:
+      tags:
+      - "submission"
+      summary: "Return the submission by id"
+      description: ""
+      operationId: "getSubmissionById"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        description: "Return the submission by id"
+        type: "integer"
+      responses: 
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Submission"
+        404:
+          description: "Submission not found"
+    put:
+        tags:
+        - "submission"
+        summary: "Update a submission"
+        description: ""
+        operationId: "updateSubmissionExam"
+        parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          description: "Update the submission by id"
+          type: "integer"
+        - in: "body"
+          name: "body"
+          description: "Create exam session object"
+          required: true
+          schema:
+            $ref: "#/definitions/Submission"
+        responses:
+          200:
+            description: "OK"
+          500:
+            description: "Error while updating exam session"
+    delete:
+      tags:
+      - "submission"
+      summary: "Delete a submission"
+      description: ""
+      operationId: "deleteSubmission"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id that needs to be deleted"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "OK"
+        404:
+          description: "Exam session not found"
 definitions:
   User:
     type: "object"

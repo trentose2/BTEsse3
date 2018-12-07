@@ -1,0 +1,83 @@
+[
+    {
+        "id": 1,
+        "idUser": 1,
+        "exam": {
+            "nameExam": "es",
+            "idExam": 1,
+            "idUser": 1,
+            "valutation": 1,
+            "tasks": [
+                {
+                    "id": 1,
+                    "type": "open",
+                    "request": "domanda",
+                    "response": "risposta",
+                    "reviews": [
+                        {
+                            "idReview": 1,
+                            "idUser": 1,
+                            "idTask": 1,
+                            "message": "es",
+                            "mark": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "idUser": 1,
+        "exam": {
+            "nameExam": "es",
+            "idExam": 2,
+            "idUser": 1,
+            "valutation": 1,
+            "tasks": [
+                {
+                    "id": 1,
+                    "type": "open",
+                    "request": "domanda",
+                    "response": "risposta",
+                    "reviews": [
+                        {
+                            "idReview": 1,
+                            "idUser": 1,
+                            "idTask": 1,
+                            "message": "es2",
+                            "mark": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "idUser": 2,
+        "exam": {
+            "nameExam": "es",
+            "idExam": 1,
+            "idUser": 2,
+            "valutation": 1,
+            "tasks": [
+                {
+                    "id": 1,
+                    "type": "open",
+                    "request": "domanda",
+                    "response": "risposta",
+                    "reviews": [
+                        {
+                            "idReview": 1,
+                            "idUser": 1,
+                            "idTask": 1,
+                            "message": "es3",
+                            "mark": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]
