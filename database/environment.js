@@ -5,14 +5,20 @@ var users = [
 	{
 		"id": 1,
 		"username": "username1",
+		"firstName":"firstName1",
+		"lastName":"lastName1",
 		"email": "email1",
-		"password": "password1"
+		"password": "password1",
+		"phone":"phone1"
 	},
 	{
 		"id": 2,
 		"username": "username2",
+		"firstName":"firstName2",
+		"lastName":"lastName2",
 		"email": "email2",
-		"password": "password2"
+		"password": "password2",
+		"phone":"phone2"
 	}
 ]
 
