@@ -1,5 +1,5 @@
 var fs = require('fs');
-const FAKE_DB_PATH = './database/users.json';
+const FAKE_DB_PATH = './users.json';
 
 var users = [
 	{
