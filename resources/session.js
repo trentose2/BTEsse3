@@ -15,101 +15,60 @@ var session_offered = [{ idSession: 23, exams: [{ nameExam: 'prova1', idExam: 74
 { idSession: 32, exams: [{ nameExam: 'prova2', idExam: 74 }, { nameExam: 'prova3', idExam: 91 }] }];
 
 //POST, sessionExam
-router.post('/sessionExams', (req, res) => {
-	if (isNaN(req.params.idSession) || req.params.idSession < 0 || req.params.exams == "") {
-		res.sendStatus(400);
-	} else {
-		var length = session_offered.length;
-		const new_session = {idSession:req.body.idSession, exams:req.body.exams};
-		var w = true;
-		let i=0;
-		for(let i = 0; i < length; i++) {
-			if (session_offered[i].idSession == req.params.idSession) {
-				w = false;
-				break;
-			}
-		}
-		if (w == true) {
-			session_offered.push(new_session);
-			res.sendStatus(200);
-		} else {
-			res.sendStatus(404);
-		}
-	}
+router.post('/sessionExams', function (req, res) {
+    const result = create_session(req.params.idSession, req.params.exams);
+    if (result == 404){
+        res.sendStatus(404);
+    } else if (result == 400) {
+       res.sendStatus(400);
+    }  else {
+       res.sendStatus(200);
+    }
 });
-//DELETE, /sessionExam/{idSession}
-router.delete('/sessionExams/del/:idSession', (req, res) => {
-	if (isNaN(req.params.idSession) || req.params.idSession < 0) {
-		res.sendStatus(400);
-	} else {
-		var y = true;
-		var length = session_offered.length;
-		let i=0;
-		for(let i = 0; i < length; i++) {
-			if (session_offered[i].idSession == req.params.idSession) {
-				y = false;
-				break;
-			}
-		}
-		if (y == false) {
-			session_offered.splice(i, 1);
-			res.sendStatus(200);
-		} else {
-			res.sendStatus(404);
-		}
 
-	}
+//DELETE, /sessionExam/{idSession}
+router.delete('/sessionExams/:idSession', function (req, res) {
+    const result = delete_session(req.params.idSession);
+    if (result == 404){
+        res.sendStatus(404);
+    } else if (result == 400) {
+       res.sendStatus(400);
+    }  else if (result == 200) {
+       res.sendStatus(200);
+    }
 });
 
 //GET, sessionExams
-router.get('/sessionExams', (req, res) => {
-	res.json(session_offered);
-	res.sendStatus(200);
+router.get('/sessionExams', function (req, res) {
+    const result = get_sessions();
+    if (result == 404) {
+        res.sendStatus(404);
+    } else {
+        res.sendStatus(200);
+    }
 });
 
 //GET,/sessionExams/{idSession}
-router.get('/sessionExams/:idSession', (req, res) => {
-	if (isNaN(req.params.idSession) || req.params.idSession < 0) {
-		res.sendStatus(404);
-	} else {
-		var f = true;
-		var length = session_offered.length;
-		let i=0;
-		for(let i = 0; i < length; i++) {
-			if (session_offered[i].idSession == req.params.idSession) {
-				f = false;
-				break;
-			}
-		}
-		if (f == false) {
-			res.json(session_offered[i].exams);
-			res.sendStatus(200);
-		} else {
-			res.sendStatus(404);
-		}
-	}
+router.get('/sessionExams/:idSession', function (req, res) {
+    const result = get_session_by_id(req.params.idSession);
+    if (result == 404) {
+        res.sendStatus(404);
+    } else if(result == 400) {
+        res.sendStatus(400);
+    } else {
+        res.sendStatus(200);
+    }
 });
 //PUT, /sessionExams
-router.put('/sessionExams', (req, res) => {
-	if (isNaN(req.params.idSession) || req.params.idSession < 0 || req.params.exams == "") {
-		res.sendStatus(400);
-	} else {
-		var g = true;
-		var length = session_offered.length;
-		let i=0;
-		for(let i = 0; i < length; i++) {
-			if (session_offered[i].idSession == parseInt(req.params.idSession)) {
-				g = false;
-				break;
-			}
-		}
-		if (g == false) {
-			session_offered[i] = {idSession:req.params.idSession, exams:req.params.exams};
-			res.sendStatus(200);
-		} else {
-			res.sendStatus(404);
-		}
-	}
+router.put('/sessionExams', function (req, res) {
+    const result = put_session(req.params.idSession, req.params.exams);
+    if (result == 404) {
+        res.sendStatus(404);
+    } else if(result == 400) {
+        res.sendStatus(400);
+    } else {
+        res.sendStatus(200);
+    }
 });
 
 //POST, /sessionExams
