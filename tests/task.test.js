@@ -1,4 +1,8 @@
+const PORT = 3000;
+const URL = 'http://localhost:${PORT}/tasks'
+
 const tasks = require('../resources/tasks')
+const fetch = require('node-fetch');
 
 /* TODO: remove this function */
 function is_task_type(elem) {
@@ -52,7 +56,7 @@ test('should be able to create the task', () => {
     expect(task_list[task_list.length -1][field]).toBe(task[field]);
   }
   tasks.test_fun_remove_task(task.id);
-})
+});
 
 test('should not create wrong type task', () => {
   var no_task = 
@@ -63,7 +67,7 @@ test('should not create wrong type task', () => {
     }
 
   expect(! tasks.test_fun_create_task(no_task)).toBeTruthy();
-})
+});
 
 test('should update a prev created task', () => {
   var task =
@@ -92,6 +96,15 @@ test('should update a prev created task', () => {
   tasks.test_fun_remove_task(task.id);
 });
 
+test('should not be able to update non existing task', () => {
+  var task_list = tasks.test_fun_get_tasks();
+  var last_task_id = task_list.length > 0 ? 
+    task_list[task_list.length -1].id + 1 :
+    0;
+  var task = {id: last_task_id, request: " ", response: " " };
+  expect(tasks.test_fun_update_task(task)).toBe(false);
+});
+
 test('should delete task by id', () => {
   var task_list_size = tasks.test_fun_get_tasks().length;
   var task_list;
@@ -101,4 +114,46 @@ test('should delete task by id', () => {
   tasks.test_fun_remove_task(task_list[task_list.length -1].id);
   expect(tasks.test_fun_get_tasks().length).toBe(task_list_size);
   expect(tasks.test_fun_get_task_by_id(task_list[task_list.length -1].id)).toBeNull();
+});
+
+test('should not be able to update non existing task', () => {
+  var task_list = tasks.test_fun_get_tasks();
+  var last_task_id = task_list.length > 0 ? 
+    task_list[task_list.length -1].id + 1 :
+    0;
+  expect(tasks.test_fun_remove_task(last_task_id)).toBe(false);
+});
+
+/* TESTS ON API CALL: */
+
+test('GET ok', () => {
+
+});
+
+test('GET not ok', () => {
+
+});
+
+test('PUT ok', () => {
+
+});
+
+test('PUT not ok', ()=> {
+
+});
+
+test('POST ok', () => {
+
+});
+
+test('POST not ok', () => {
+
+});
+
+test('DELETE ok', () => {
+  
+});
+
+test('DELETE not ok', () => {
+  
 });
