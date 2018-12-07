@@ -44,6 +44,16 @@ router.put('/', function (req, res) {
   }
 });
 
+router.delete('/:id', function (req, res) {
+  if (delete_task(req.params.id)) {
+    res.json({status: "removed", task_id: req.params.id});
+    res.statusCode = 200;
+  } else {
+    res.statusCode = 400;
+    res.json({message: "Unable to remove task"});
+  }
+});
+
 function is_task_type(elem) {
   return elem.id !== undefined && elem.response !== undefined &&
     elem.type !== undefined && elem.request !== undefined;
