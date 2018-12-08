@@ -1,5 +1,5 @@
 const reset = require('../database/environment').reset;
-const user = require('../resources/user');
+const user = require('../JS/user_functions');
 
 reset();
 
