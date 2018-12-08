@@ -30,25 +30,14 @@ function write_data(users) {
 	fs.writeFileSync(FAKE_DB_PATH, JSON.stringify(users));
 }
 
-<<<<<<< HEAD
-function reset_db() {
-=======
 function reset_users() {
->>>>>>> develop
 	write_data(users);
 }
 
 module.exports = {
 	read: read_data,
 	write: write_data,
-<<<<<<< HEAD
-	reset: reset_db
-};
-
-reset_db();
-=======
 	reset: reset_users
 };
 
 reset_users();
->>>>>>> develop
