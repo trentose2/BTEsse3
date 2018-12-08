@@ -1,5 +1,5 @@
 var fs = require('fs');
-const FAKE_DB_PATH = './users.json';
+const FAKE_DB_PATH = './database/users.json';
 
 var users = [
 	{
@@ -30,14 +30,14 @@ function write_data(users) {
 	fs.writeFileSync(FAKE_DB_PATH, JSON.stringify(users));
 }
 
-function reset_db() {
+function reset_users() {
 	write_data(users);
 }
 
 module.exports = {
 	read: read_data,
 	write: write_data,
-	reset: reset_db
+	reset: reset_users
 };
 
-reset_db();
+reset_users();
