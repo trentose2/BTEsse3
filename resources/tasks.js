@@ -132,6 +132,8 @@ function update_task(task) {
 }
 
 /* exported functions (I KNOW THIS IS SHITTY) */
+router.fun_read_data = read_data;
+router.fun_write_data = write_data;
 router.test_fun_get_tasks = get_tasks;
 router.test_fun_create_task = create_task;
 router.test_fun_remove_task = delete_task;

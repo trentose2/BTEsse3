@@ -1,14 +1,20 @@
-const PORT = 3000;
-const URL = 'http://localhost:${PORT}/tasks'
+const URL = 'http://localhost:3000/tasks'
 
 const tasks = require('../resources/tasks')
 const fetch = require('node-fetch');
+const app = require('../api');
 
-/* TODO: remove this function */
+var at_the_end = null;
+
 function is_task_type(elem) {
   return elem.id !== undefined && elem.response !== undefined &&
     elem.type !== undefined && elem.request !== undefined;
 }
+
+test('side effect test', () => {
+  at_the_end = tasks.fun_read_data();
+  expect(true).toBe(true);
+});
 
 test('should be able to return all tasks', () => {
   var task_list = tasks.test_fun_get_tasks();
@@ -127,33 +133,118 @@ test('should not be able to update non existing task', () => {
 /* TESTS ON API CALL: */
 
 test('GET ok', () => {
+  var task_list = tasks.test_fun_get_tasks();
+  var id = null;
+  if (task_list.length == 0) {
+    tasks.test_fun_create_task({type: "", request: "", response: ""});
+    id = 1;
+  } else { id = task_list[0].id; }
 
+  return fetch(URL+'/'+id, { method: 'GET'}
+    ).then(res => { expect(res.status).toBe(200); });
 });
 
 test('GET not ok', () => {
+  var task_list = tasks.test_fun_get_tasks();
+  var id = null;
+  if (task_list.length == 0) {
+    id = 1;
+  } else { id = task_list[task_list.length - 1].id + 1; }
 
+  return fetch(URL+'/'+id, { method: 'GET'}
+  ).then(res => { expect(res.status).toBe(400);});
 });
 
 test('PUT ok', () => {
+  var task_list = tasks.test_fun_get_tasks();
+  var id = null;
+  if (task_list.length == 0) {
+    tasks.test_fun_create_task({type: "", request: "", response: ""});
+    id = 1;
+  } else { id = task_list[0].id; }
 
+  return fetch(URL+'/', {
+    method: 'PUT',
+    body: JSON.stringify({id: id, type: "mllmlml", request: "none", response: "MMM"}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => { expect(res.status).toBe(200);});
 });
 
 test('PUT not ok', ()=> {
+  var task_list = tasks.test_fun_get_tasks();
+  var id = null;
+  if (task_list.length == 0) {
+    tasks.test_fun_create_task({type: "", request: "", response: ""});
+    id = 1;
+  } else { id = task_list[0].id; }
 
+  return fetch(URL+'/', {
+    method: 'PUT',
+    body: JSON.stringify({id: id, tp: "mllmlml", rquest: "none", response: "MMM"}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => { expect(res.status).toBe(400);});
 });
 
 test('POST ok', () => {
-
+  return fetch(URL + '/', {
+    method: 'POST',
+    body: JSON.stringify({type : "t", request: "req", response: "resp"}),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(res => {
+    expect(res.status).toEqual(200);
+  });
 });
 
 test('POST not ok', () => {
-
+  return fetch(URL + '/', {
+    method: 'POST',
+    body: JSON.stringify({tpe : "t", rquest: "req", respone: "resp"}),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(res => {
+    expect(res.status).toEqual(400);
+  });
 });
 
 test('DELETE ok', () => {
-  
+  var task_list = tasks.test_fun_get_tasks();
+  var id = null;
+  if (task_list.length == 0) {
+    tasks.test_fun_create_task({type: "", request: "", response: ""});
+    id = 1;
+  } else { id = task_list[0].id; }
+
+  return fetch(URL + '/'+ id, { method: 'DELETE'}
+    ).then(res => {
+      expect(res.status).toBe(200);
+    });
 });
 
 test('DELETE not ok', () => {
-  
+  var task_list = tasks.test_fun_get_tasks();
+  var id = -1;
+
+  return fetch(URL + '/'+ id, { method: 'DELETE'}
+    ).then(res => {
+      expect(res.status).toBe(400);
+    });
 });
+
+test('side effect test end', () => {
+  expect(at_the_end === null).toBe(false);
+  tasks.fun_write_data(at_the_end);
+  expect(app._exported_server).toBeDefined();
+  app._exported_server.close();
+  expect(true).toBe(true);
+})

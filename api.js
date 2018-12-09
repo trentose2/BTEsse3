@@ -19,6 +19,6 @@ app.use('/users', users);
 app.use('/tasks', tasks);
 
 
-app.listen(PORT, () => console.log('Example app listening on port ' + PORT));
+app._exported_server = app.listen(PORT, () => console.log('Example app listening on port ' + PORT));
 
 module.exports = app;
